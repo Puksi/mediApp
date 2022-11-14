@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">mediApp</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_1">Heute</string>
+    <string name="tab_text_2">Historie</string>
+    <string name="tab_text_3">Medikamente</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
