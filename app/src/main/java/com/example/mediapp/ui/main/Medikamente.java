@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Use the {@link Medikamente#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Medikamente extends ListFragment{
+public class Medikamente extends ListActivity{
 
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
