@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.mediapp.R;
 
@@ -46,19 +47,19 @@ public class Medikamente extends ListActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        adapter = new ArrayAdapter<String>(this, R.layout.fragment_medikamente, listItems);
+        setContentView(R.layout.fragment_medikamente);
+        EditText eingabe = (EditText) findViewById(R.id.editTextNameMedikament);
+        Button button = (Button) findViewById(R.id.buttonMedikamente);
+        ListView liste = (ListView) findViewById(R.id.listviewerMedikamente);
+        adapter = new ArrayAdapter<String>(this, R.layout.fragment_medikamente, listItems);
         setListAdapter(adapter);
 
-//        AddItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String text = Eingabe.getText().toString();
-//                if(text == null || text.length() == 0){
-//
-//                }
-//            }
-//        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 

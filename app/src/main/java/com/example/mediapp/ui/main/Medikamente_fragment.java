@@ -32,7 +32,7 @@ public class Medikamente_fragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    ArrayList<String> items;
+    ArrayList<String> items = new ArrayList<String>();
     ListView listView;
     ArrayAdapter<String> adapter;
     EditText input;
@@ -56,14 +56,37 @@ public class Medikamente_fragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        super(R.layout.fragment_medikamente_fragment);
+//
+//        Button btn = findViewById(R.id.buttonMedikamente);
+//        EditText input = view.findViewById(R.id.editTextNameMedikament);
+//        ListView liste = view.findViewById(R.id.listviewerMedikamente);
+//
+//        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+//
+//        liste.setAdapter(adapter);
+//
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String medikament = input.getText().toString();
+//                if(medikament == null || medikament.length() == 0){
+//                    input.setText("Bitte ein Medikament eingeben");
+//                }else{
+//                    items.add(medikament);
+//                    input.setText("");
+//
+//                    adapter.notifyDataSetChanged();
+//
+//                }
+//            }
+//        });
+//
+//    }
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,24 +94,28 @@ public class Medikamente_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_medikamente_fragment, container, false);
         Button btn = view.findViewById(R.id.buttonMedikamente);
         EditText input = view.findViewById(R.id.editTextNameMedikament);
+        ListView liste = view.findViewById(R.id.listviewerMedikamente);
+
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
+
+        liste.setAdapter(adapter);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String medikament = input.getText().toString();
                 if(medikament == null || medikament.length() == 0){
-
+                    input.setText("Bitte ein Medikament eingeben");
                 }else{
-                    addItem(medikament);
+                    items.add(medikament);
                     input.setText("");
+
+                    adapter.notifyDataSetChanged();
 
                 }
             }
         });
 
         return view;
-    }
-    public void addItem(String item){
-        items.add(item);
-        listView.setadapter(adapter);
     }
 }
