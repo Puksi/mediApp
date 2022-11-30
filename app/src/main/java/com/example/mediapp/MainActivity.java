@@ -2,20 +2,15 @@ package com.example.mediapp;
 
 import android.os.Bundle;
 
+import com.example.mediapp.ui.main.Medikament_edit;
 import com.example.mediapp.ui.main.MyViewPagerAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.example.mediapp.ui.main.SectionsPagerAdapter;
 import com.example.mediapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
@@ -59,5 +55,22 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(position).select();
             }
         });
+
+
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//        int fragments = getSupportFragmentManager().getBackStackEntryCount();
+//        if (fragments == 1) {
+//            finish();
+//            return;
+//        }
+//
+//        super.onBackPressed();
+//    }
+
+    public void changeFragment() {
+        viewPager.setCurrentItem(3);
     }
 }

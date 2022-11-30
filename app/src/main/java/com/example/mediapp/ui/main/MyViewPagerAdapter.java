@@ -20,6 +20,8 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
                 return new Historie();
             case 2:
                 return new Medikamente_fragment();
+            case 3:
+                return new Medikament_edit();
             default:
                 return new Heute();
         }
@@ -28,6 +30,6 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }
