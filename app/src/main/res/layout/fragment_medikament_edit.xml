@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/medikament_edit"
+    tools:context=".ui.main.Medikament_edit"
+    android:background="@color/chinese_silver">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout2">
+
+<!--        <ImageView-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:id="@+id/backArrow"-->
+<!--            android:src="@drawable/ic_backarrow"-->
+<!--            android:layout_centerVertical="true" />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Name"
+            android:textSize="20sp"
+            android:paddingHorizontal="20dp"
+            android:id="@+id/medikamentName"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout1"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_centerVertical="true"
+        android:paddingHorizontal="20dp">
+
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="In Kalender eintragen" />
+
+    </RelativeLayout>
+
+    <!-- wann medikament -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout3"
+        android:layout_below="@+id/relativeLayout1"
+        android:paddingHorizontal="20dp">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioGroup">
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/morgens"
+                android:text="Morgens"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/mittags"
+                android:text="Mittags"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/abends"
+                android:text="Abends"/>
+
+        </RadioGroup>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout4"
+        android:layout_below="@+id/relativeLayout3">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/pills"
+            android:src="@drawable/ic_pills"
+            android:layout_centerVertical="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/pills"
+            android:layout_centerVertical="true"
+            android:text="Menge der Tabletten"
+            android:textSize="20sp"
+            android:layout_marginStart="5dp"
+            android:id="@+id/mengeMedikament"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout5"
+        android:layout_below="@id/relativeLayout4">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/kommentar"
+            android:text="zusätzliche Kommentare"
+            android:textAlignment="center"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout5"
+        android:text="Speichern"
+        android:id="@+id/speichern_edit"/>
+
+</LinearLayout>
