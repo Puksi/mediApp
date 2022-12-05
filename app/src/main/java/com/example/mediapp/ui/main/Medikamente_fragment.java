@@ -1,6 +1,7 @@
 package com.example.mediapp.ui.main;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class Medikamente_fragment extends Fragment {
     ProgressDialog pd;
     MainActivity mainActivity;
 
+    private MyListener listener;
 
     public Medikamente_fragment() {
     }
@@ -75,6 +77,12 @@ public class Medikamente_fragment extends Fragment {
 //
 //    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listener = (MyListener) context;
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,6 +95,7 @@ public class Medikamente_fragment extends Fragment {
 
 
 
+
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
 
         liste.setAdapter(adapter);
@@ -95,7 +104,9 @@ public class Medikamente_fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String medikament = input.getText().toString();
+                listener.addMedikament(new Medikament(medikament));
 
+//                   ((MainActivity)getActivity()).addMedikament1(new Medikament(medikament));
 
                 if(medikament == null || medikament.length() == 0){
                     input.setText("Bitte ein Medikament eingeben");
@@ -106,6 +117,7 @@ public class Medikamente_fragment extends Fragment {
                     adapter.notifyDataSetChanged();
 
                 }
+
             }
         });
 
@@ -119,6 +131,7 @@ public class Medikamente_fragment extends Fragment {
                             .replace(((ViewGroup)getView().getParent()).getId(), medikament_edit, "findThisFragment")
                             .addToBackStack(null)
                             .commit();
+                    listener.setIds(i, l);
 
 
                 }catch (Exception e) {

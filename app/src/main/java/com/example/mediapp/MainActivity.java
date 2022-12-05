@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mediapp.databinding.ActivityMainBinding;
 import com.example.mediapp.ui.main.Medikament;
+import com.example.mediapp.ui.main.MyListener;
 import com.example.mediapp.ui.main.MyViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -17,12 +18,15 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyListener {
 
     private ActivityMainBinding binding;
     TabLayout tabLayout;
     ViewPager2 viewPager;
     MyViewPagerAdapter myViewPagerAdapter;
+    private ArrayList<Medikament> medikamenteListe = new ArrayList<>();
+    int id = 0;
+    long longId = 0;
 
 
     public ArrayList<Medikament> getMedikamenteListe() {
@@ -33,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         this.medikamenteListe = medikamenteListe;
     }
 
-    ArrayList<Medikament> medikamenteListe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         myViewPagerAdapter = new MyViewPagerAdapter(this);
         viewPager.setAdapter(myViewPagerAdapter);
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -73,8 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
         String MedikamenteListeJSON = prefs.getString("MeineMedikamenteListe","");
-        medikamenteListe = new Gson().fromJson(MedikamenteListeJSON, new TypeToken<List<Medikament>>() {
-        }.getType());
+        if(MedikamenteListeJSON.length() != 4) {
+            medikamenteListe = new Gson().fromJson(MedikamenteListeJSON, new TypeToken<List<Medikament>>() {
+            }.getType());
+        }else {
+
+        }
 
 
 
@@ -110,4 +118,35 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment() {
         viewPager.setCurrentItem(3);
     }
+
+    @Override
+    public void addMedikament(Medikament medikament){
+        medikamenteListe.add(medikament);
+    }
+
+    public void addMedikament1(Medikament medikament) {
+        medikamenteListe.add(medikament);
+    }
+
+    @Override
+    public void setIds(int i, long l){
+        this.id = i;
+        this.longId = l;
+    }
+
+    @Override
+    public int getIdFromMain(){
+        return this.id;
+    }
+
+    @Override
+    public long getLIdFromMain(){
+        return this.longId;
+    }
+
+    @Override
+    public Medikament returnMedikament(int i){
+        return medikamenteListe.get(i);
+    }
+
 }

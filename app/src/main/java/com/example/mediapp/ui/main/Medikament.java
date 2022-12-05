@@ -2,16 +2,43 @@ package com.example.mediapp.ui.main;
 
 public class Medikament {
     private String medikament_name;
-    private int uhrzeit;
-    private int anzahl_medikamente;
-    private String kommentar;
+    private boolean imKalender = false;
+    private boolean einnahme_frueh = false;
+    private boolean einnahme_mittag = false;
+    private boolean einnahme_abends = false;
+    private int anzahl_medikamente = 0;
+    private String kommentar = "";
 
-    public int getUhrzeit() {
-        return uhrzeit;
+    public boolean isImKalender() {
+        return imKalender;
     }
 
-    public void setUhrzeit(int uhrzeit) {
-        this.uhrzeit = uhrzeit;
+    public void setImKalender(boolean imKalender) {
+        this.imKalender = imKalender;
+    }
+
+    public boolean isEinnahme_frueh() {
+        return einnahme_frueh;
+    }
+
+    public void setEinnahme_frueh(boolean einnahme_frueh) {
+        this.einnahme_frueh = einnahme_frueh;
+    }
+
+    public boolean isEinnahme_mittag() {
+        return einnahme_mittag;
+    }
+
+    public void setEinnahme_mittag(boolean einnahme_mittag) {
+        this.einnahme_mittag = einnahme_mittag;
+    }
+
+    public boolean isEinnahme_abends() {
+        return einnahme_abends;
+    }
+
+    public void setEinnahme_abends(boolean einnahme_abends) {
+        this.einnahme_abends = einnahme_abends;
     }
 
     public int getAnzahl_medikamente() {
@@ -42,9 +69,12 @@ public class Medikament {
         this.medikament_name = medikament_name;
     }
 
-    public Medikament(String medikament_name, int uhrzeit, int anzahl_medikamente, String kommentar) {
+    public Medikament(String medikament_name, boolean imKalender, boolean einnahme_frueh, boolean einnahme_mittag, boolean einnahme_abends, int anzahl_medikamente, String kommentar) {
         this.medikament_name = medikament_name;
-        this.uhrzeit = uhrzeit;
+        this.imKalender = imKalender;
+        this.einnahme_frueh = einnahme_frueh;
+        this.einnahme_mittag = einnahme_mittag;
+        this.einnahme_abends = einnahme_abends;
         this.anzahl_medikamente = anzahl_medikamente;
         this.kommentar = kommentar;
     }
