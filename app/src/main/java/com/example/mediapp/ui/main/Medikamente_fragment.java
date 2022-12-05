@@ -1,22 +1,7 @@
 package com.example.mediapp.ui.main;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.mediapp.MainActivity;
 import com.example.mediapp.R;
-import com.example.mediapp.ui.main.placeholder.PlaceholderContent;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;
 
@@ -102,7 +83,7 @@ public class Medikamente_fragment extends Fragment {
         Button btn = view.findViewById(R.id.buttonMedikamente);
         EditText input = view.findViewById(R.id.editTextNameMedikament);
         ListView liste = view.findViewById(R.id.listviewerMedikamente);
-        ArrayList<Medikament> liste_medikament = mainActivity.getMedikamenteListe();
+
 
 
 

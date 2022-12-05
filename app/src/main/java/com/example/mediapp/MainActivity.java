@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.mediapp.ui.main.Medikament;
-import com.example.mediapp.ui.main.MyViewPagerAdapter;
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mediapp.databinding.ActivityMainBinding;
+import com.example.mediapp.ui.main.Medikament;
+import com.example.mediapp.ui.main.MyViewPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
