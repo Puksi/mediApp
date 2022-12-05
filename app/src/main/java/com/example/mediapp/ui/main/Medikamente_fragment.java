@@ -40,8 +40,6 @@ import java.util.ArrayList;
 
 public class Medikamente_fragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
 
     private int mColumnCount = 1;
     ArrayList<String> items = new ArrayList<String>();
@@ -50,6 +48,7 @@ public class Medikamente_fragment extends Fragment {
     EditText input;
     Button btn;
     ProgressDialog pd;
+    MainActivity mainActivity;
 
 
     public Medikamente_fragment() {
@@ -60,7 +59,6 @@ public class Medikamente_fragment extends Fragment {
     public static Medikamente_fragment newInstance(int columnCount) {
         Medikamente_fragment fragment = new Medikamente_fragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -104,7 +102,7 @@ public class Medikamente_fragment extends Fragment {
         Button btn = view.findViewById(R.id.buttonMedikamente);
         EditText input = view.findViewById(R.id.editTextNameMedikament);
         ListView liste = view.findViewById(R.id.listviewerMedikamente);
-
+        ArrayList<Medikament> liste_medikament = mainActivity.getMedikamenteListe();
 
 
 

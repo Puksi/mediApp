@@ -2,6 +2,7 @@ package com.example.mediapp;
 
 import android.os.Bundle;
 
+import com.example.mediapp.ui.main.Medikament;
 import com.example.mediapp.ui.main.Medikament_edit;
 import com.example.mediapp.ui.main.MyViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -13,12 +14,24 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mediapp.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     TabLayout tabLayout;
     ViewPager2 viewPager;
     MyViewPagerAdapter myViewPagerAdapter;
+
+    public ArrayList<Medikament> getMedikamenteListe() {
+        return medikamenteListe;
+    }
+
+    public void setMedikamenteListe(ArrayList<Medikament> medikamenteListe) {
+        this.medikamenteListe = medikamenteListe;
+    }
+
+    ArrayList<Medikament> medikamenteListe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
