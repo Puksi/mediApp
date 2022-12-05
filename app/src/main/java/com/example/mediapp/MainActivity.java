@@ -1,20 +1,22 @@
 package com.example.mediapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.mediapp.ui.main.Medikament;
-import com.example.mediapp.ui.main.Medikament_edit;
 import com.example.mediapp.ui.main.MyViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mediapp.databinding.ActivityMainBinding;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager;
     MyViewPagerAdapter myViewPagerAdapter;
+
 
     public ArrayList<Medikament> getMedikamenteListe() {
         return medikamenteListe;
@@ -69,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
+        String MedikamenteListeJSON = prefs.getString("MeineMedikamenteListe","");
+        medikamenteListe = new Gson().fromJson(MedikamenteListeJSON, new TypeToken<List<Medikament>>() {
+        }.getType());
+
+
+
+
 
     }
 
@@ -82,6 +93,20 @@ public class MainActivity extends AppCompatActivity {
 //
 //        super.onBackPressed();
 //    }
+
+    @Override
+    protected void onStop() {
+
+        String MedikamentenListeJSON = new Gson().toJson(medikamenteListe);
+
+        SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("MeineMedikamenteListe", MedikamentenListeJSON);
+
+        editor.apply();
+
+        super.onStop();
+    }
 
     public void changeFragment() {
         viewPager.setCurrentItem(3);
