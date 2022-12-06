@@ -23,16 +23,17 @@ import java.util.ArrayList;
 public class Medikamente_fragment extends Fragment {
 
 
-    private int mColumnCount = 1;
+    int zeile;
     ArrayList<String> items = new ArrayList<String>();
     ListView listView;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<Medikament> adapter;
     EditText input;
     Button btn;
     ProgressDialog pd;
     MainActivity mainActivity;
+    ArrayList<Medikament> meineMedikamenteListe;
 
-    private MyListener listener;
+    private MainActivity myContext;
 
     public Medikamente_fragment() {
     }
@@ -49,38 +50,16 @@ public class Medikamente_fragment extends Fragment {
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        super(R.layout.fragment_medikamente_fragment);
-//
-//        Button btn = findViewById(R.id.buttonMedikamente);
-//        EditText input = view.findViewById(R.id.editTextNameMedikament);
-//        ListView liste = view.findViewById(R.id.listviewerMedikamente);
-//
-//        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-//
-//        liste.setAdapter(adapter);
-//
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String medikament = input.getText().toString();
-//                if(medikament == null || medikament.length() == 0){
-//                    input.setText("Bitte ein Medikament eingeben");
-//                }else{
-//                    items.add(medikament);
-//                    input.setText("");
-//
-//                    adapter.notifyDataSetChanged();
-//
-//                }
-//            }
-//        });
-//
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        fragmentManager.beginTransaction().add()
 //    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (MyListener) context;
+        myContext = (MainActivity) context;
+        meineMedikamenteListe = ((MainActivity) context).getMedikamenteListe();
+
 
     }
 
@@ -95,18 +74,18 @@ public class Medikamente_fragment extends Fragment {
 
 
 
-
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
+        adapter = new ArrayAdapter<Medikament>(getActivity(), android.R.layout.simple_list_item_1, meineMedikamenteListe);
 
         liste.setAdapter(adapter);
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String medikament = input.getText().toString();
-                listener.addMedikament(new Medikament(medikament));
-
-//                   ((MainActivity)getActivity()).addMedikament1(new Medikament(medikament));
+                ArrayList<Medikament> medikamenteListe = myContext.getMedikamenteListe();
+                medikamenteListe.add(new Medikament(medikament));
+//                   ((MainActivity)getActivity()).addMedikament(new Medikament(medikament));
 
                 if(medikament == null || medikament.length() == 0){
                     input.setText("Bitte ein Medikament eingeben");
@@ -126,12 +105,14 @@ public class Medikamente_fragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 try {
-                    Medikament_edit medikament_edit = new Medikament_edit();
+                    Medikament_edit medikament_edit = new Medikament_edit(i);
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(((ViewGroup)getView().getParent()).getId(), medikament_edit, "findThisFragment")
+                            .replace(((ViewGroup)getView().getParent()).getId(), medikament_edit, "fragment_medikament_edit")
                             .addToBackStack(null)
                             .commit();
-                    listener.setIds(i, l);
+                    // TODO: 06/12/2022 Listener auch in Medikament_edit und dort die ids anpassen und nicht hier
+                    zeile = i;
+
 
 
                 }catch (Exception e) {
@@ -150,5 +131,8 @@ public class Medikamente_fragment extends Fragment {
         return view;
     }
 
+    public int getZeile(){
+        return zeile;
+    }
 
 }

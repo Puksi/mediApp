@@ -78,4 +78,9 @@ public class Medikament {
         this.anzahl_medikamente = anzahl_medikamente;
         this.kommentar = kommentar;
     }
+
+    @Override
+    public String toString() {
+        return this.medikament_name;
+    }
 }

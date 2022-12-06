@@ -63,23 +63,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/radioGroup">
-            <RadioButton
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/morgens"
                 android:text="Morgens"/>
-            <RadioButton
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/mittags"
                 android:text="Mittags"/>
-            <RadioButton
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/abends"
                 android:text="Abends"/>
 
+
         </RadioGroup>
+
 
     </RelativeLayout>
 

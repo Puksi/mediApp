@@ -16,6 +16,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
         switch (position){
             case 0:
                 return new Heute();
+
             case 1:
                 return new Historie();
             case 2:
