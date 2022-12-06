@@ -83,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements MyListener {
         }else {
 
         }
-
+        if(medikamenteListe == null){
+            medikamenteListe = new ArrayList<>();
+        }
 
 
 
