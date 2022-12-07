@@ -21,7 +21,7 @@ import com.example.mediapp.R;
 import java.util.ArrayList;
 
 
-public class Medikament_edit extends Fragment {
+public class Medikament_edit extends Medikamente_fragment {
 
     ArrayList<Medikament> meineMedikamenteListe;
     MainActivity myActivity;
@@ -63,6 +63,7 @@ public class Medikament_edit extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_medikament_edit, container, false);
         Button save = view.findViewById(R.id.speichern_edit);
+        Button delete = view.findViewById(R.id.löschen_edit);
         Switch kalenderSwitch = view.findViewById(R.id.switch1);
         RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
         CheckBox morgens = view.findViewById(R.id.morgens);
@@ -73,20 +74,20 @@ public class Medikament_edit extends Fragment {
         EditText kommentar = view.findViewById(R.id.kommentar);
 
 
-
-
-
-
         Medikament medikament = meineMedikamenteListe.get(zeile);
 
         name.setText(medikament.getMedikament_name());
         kalenderSwitch.setChecked(medikament.isImKalender());
+//        mittags.setChecked(true);
         morgens.setChecked(medikament.isEinnahme_frueh());
         mittags.setChecked(medikament.isEinnahme_mittag());
         abends.setChecked(medikament.isEinnahme_abends());
         menge.setText(Integer.toString(medikament.getAnzahl_medikamente()));
         kommentar.setText(medikament.getKommentar());
-
+        if(medikament.getKommentar() == "" || kommentar.length() == 0){
+            kommentar.setHint("Kommentar");
+        } else {
+            medikament.setKommentar(kommentar.getText().toString()); }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +98,50 @@ public class Medikament_edit extends Fragment {
                 medikament.setEinnahme_frueh(morgens.isChecked());
                 medikament.setEinnahme_mittag(mittags.isChecked());
                 medikament.setEinnahme_abends(abends.isChecked());
-                // TODO: 06/12/2022 medikament muss die Menge der Medikamente übernehmen. VLt den Text view ändern dass der nur int anzeigt
+                medikament.setAnzahl_medikamente(Integer.parseInt(menge.getText().toString()));
+
+                medikament.setAnzahl_medikamente(Integer.parseInt(menge.getText().toString()));
+                if (medikament.isEinnahme_frueh()){
+                    einname = "Morgens: ";
+                } if (medikament.isEinnahme_mittag()){
+                    einname = "Mittags: ";
+                } if (medikament.isEinnahme_abends()){
+                    einname = "Abends: ";
+                } if (medikament.isEinnahme_abends() && medikament.isEinnahme_frueh()){
+                    einname = "Morgens und Abends: ";}
+                if (medikament.isEinnahme_frueh() && medikament.isEinnahme_mittag()){
+                    einname = "Morgens und Mittags: ";}
+                if (medikament.isEinnahme_frueh() && medikament.isEinnahme_mittag() &&
+                        medikament.isEinnahme_abends()){
+                    einname = "Morgens, Mittags und Abends: ";}
+                if (!medikament.isEinnahme_frueh() && !medikament.isEinnahme_mittag() &&
+                        !medikament.isEinnahme_abends()){
+                    einname = "";}
+
+                medikament.medikament_anzeige = einname + medikament.getAnzahl_medikamente()
+                        +  "x " + medikament.getMedikament_name() + " " + medikament.getKommentar();
+
+                if (Integer.parseInt(menge.getText().toString()) <= 0){
+                    menge.setText("");
+                    menge.setHint("Bitte eine Anzahl größer als 0 eingeben.");
+                }
+                else{
+                Medikamente_fragment medikamente_fragment = new Medikamente_fragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(((ViewGroup)getView().getParent()).getId(), medikamente_fragment, "medikament_fragment")
+                        .addToBackStack(null)
+                        .commit();}
+
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                meineMedikamenteListe.remove(medikament);
+
+//                adapter.notifyDataSetChanged();
 
 
                 Medikamente_fragment medikamente_fragment = new Medikamente_fragment();
