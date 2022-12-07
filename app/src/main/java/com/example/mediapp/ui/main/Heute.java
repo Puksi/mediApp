@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.mediapp.R;
 
@@ -15,8 +19,8 @@ import com.example.mediapp.R;
  * Use the {@link Heute#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Heute extends Fragment {
-
+public class Heute extends Medikamente_fragment {
+    ArrayAdapter<Medikament> adapter2;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,7 +64,12 @@ public class Heute extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_heute, container, false);
+        ListView liste2 = view.findViewById(R.id.listviewHeute);
+        adapter2 = new ArrayAdapter<Medikament>(getActivity(), android.R.layout.simple_list_item_1, meineMedikamenteListe);
+        liste2.setAdapter(adapter2);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_heute, container, false);
+        adapter2.notifyDataSetChanged();
+        return view;
     }
 }
