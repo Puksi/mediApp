@@ -86,3 +86,4 @@ public class Medikament {
     public String toString() {
         return this.medikament_anzeige;
     }
+}
