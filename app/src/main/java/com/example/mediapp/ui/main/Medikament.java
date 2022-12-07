@@ -1,6 +1,7 @@
 package com.example.mediapp.ui.main;
 
 public class Medikament {
+    String medikament_anzeige;
     private String medikament_name;
     private boolean imKalender = false;
     private boolean einnahme_frueh = false;
@@ -65,11 +66,13 @@ public class Medikament {
         this.medikament_name = medikament_name;
     }
 
-    public Medikament(String medikament_name) {
+    public Medikament(String medikament_anzeige, String medikament_name) {
+        this.medikament_anzeige = medikament_anzeige;
         this.medikament_name = medikament_name;
     }
 
-    public Medikament(String medikament_name, boolean imKalender, boolean einnahme_frueh, boolean einnahme_mittag, boolean einnahme_abends, int anzahl_medikamente, String kommentar) {
+    public Medikament(String medikament_anzeige, String medikament_name, boolean imKalender, boolean einnahme_frueh, boolean einnahme_mittag, boolean einnahme_abends, int anzahl_medikamente, String kommentar) {
+        this.medikament_anzeige = medikament_anzeige;
         this.medikament_name = medikament_name;
         this.imKalender = imKalender;
         this.einnahme_frueh = einnahme_frueh;
@@ -81,6 +84,5 @@ public class Medikament {
 
     @Override
     public String toString() {
-        return this.medikament_name;
+        return this.medikament_anzeige;
     }
-}
