@@ -10,6 +10,8 @@ public class Medikament {
     private int anzahl_medikamente = 0;
     private String kommentar = "";
 
+    // TODO: 07/12/2022 kommentar fehlt hier 
+
     public boolean isImKalender() {
         return imKalender;
     }
