@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/medikamente_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.Heute">
+    tools:context=".ui.main.Medikamente_fragment"
+    android:background="@color/chinese_silver"
+    android:tag="fragment_heute">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listviewHeute"/>
+        android:id="@+id/listviewHeute"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-</FrameLayout>
+    </ListView>
+
+
+</LinearLayout>
