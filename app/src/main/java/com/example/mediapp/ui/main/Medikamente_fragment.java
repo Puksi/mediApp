@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Medikamente_fragment extends Fragment {
 
-
+    String einname;
     int zeile;
     ArrayList<String> items = new ArrayList<String>();
     ListView listView;
@@ -31,7 +31,7 @@ public class Medikamente_fragment extends Fragment {
     Button btn;
     ProgressDialog pd;
     MainActivity mainActivity;
-    ArrayList<Medikament> meineMedikamenteListe;
+    public ArrayList<Medikament> meineMedikamenteListe;
 
     private MainActivity myContext;
 
@@ -71,9 +71,6 @@ public class Medikamente_fragment extends Fragment {
         EditText input = view.findViewById(R.id.editTextNameMedikament);
         ListView liste = view.findViewById(R.id.listviewerMedikamente);
 
-
-
-
         adapter = new ArrayAdapter<Medikament>(getActivity(), android.R.layout.simple_list_item_1, meineMedikamenteListe);
 
         liste.setAdapter(adapter);
@@ -84,13 +81,37 @@ public class Medikamente_fragment extends Fragment {
             public void onClick(View view) {
                 String medikament = input.getText().toString();
                 ArrayList<Medikament> medikamenteListe = myContext.getMedikamenteListe();
-                medikamenteListe.add(new Medikament(medikament));
+//                medikamenteListe.add(new Medikament(medikament));
 //                   ((MainActivity)getActivity()).addMedikament(new Medikament(medikament));
+                Medikament medikament2 = new Medikament("",medikament, true,
+                        true, false, false,
+                        1, "" );
 
-                if(medikament == null || medikament.length() == 0){
-                    input.setText("Bitte ein Medikament eingeben");
+                if(medikament.length() == 0){
+                    input.setHint("Bitte ein Medikament eingeben");
                 }else{
-                    items.add(medikament);
+                    if (medikament2.isEinnahme_frueh()){
+                        einname = "Morgens: ";
+                    } if (medikament2.isEinnahme_mittag()){
+                        einname = "Mittags: ";
+                    } if (medikament2.isEinnahme_abends()){
+                        einname = "Abends: ";
+                    } if (medikament2.isEinnahme_abends() && medikament2.isEinnahme_frueh()){
+                        einname = "Morgens und Abends: ";}
+                    if (medikament2.isEinnahme_frueh() && medikament2.isEinnahme_mittag()){
+                        einname = "Morgens und Mittags: ";}
+                    if (medikament2.isEinnahme_frueh() && medikament2.isEinnahme_mittag() &&
+                            medikament2.isEinnahme_abends()){
+                        einname = "Morgens, Mittags und Abends: ";}
+                    if (!medikament2.isEinnahme_frueh() && !medikament2.isEinnahme_mittag() &&
+                            !medikament2.isEinnahme_abends()){
+                        einname = "";}
+
+
+//                    items.add(medikament);
+                    medikament2.medikament_anzeige = einname + medikament2.getAnzahl_medikamente()
+                            +  "x " + medikament  + " " + medikament2.getKommentar();
+                    medikamenteListe.add(medikament2);
                     input.setText("");
 
                     adapter.notifyDataSetChanged();
