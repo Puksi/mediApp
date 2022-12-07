@@ -3,6 +3,7 @@ package com.example.mediapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -24,9 +25,15 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager;
     MyViewPagerAdapter myViewPagerAdapter;
     private ArrayList<Medikament> medikamenteListe = new ArrayList<>();
+    ArrayAdapter<Medikament> adapter;
+    ArrayAdapter<Medikament> adapter2;
     int id = 0;
     long longId = 0;
 
+
+//    public void deleteItem(int position){
+//        medikamenteListe.remove(position);
+//    }
 
     public ArrayList<Medikament> getMedikamenteListe() {
         return medikamenteListe;
@@ -57,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
