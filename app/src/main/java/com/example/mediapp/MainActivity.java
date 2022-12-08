@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mediapp.databinding.ActivityMainBinding;
 import com.example.mediapp.ui.main.Medikament;
 import com.example.mediapp.ui.main.MyViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -20,20 +19,24 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
     TabLayout tabLayout;
     ViewPager2 viewPager;
     MyViewPagerAdapter myViewPagerAdapter;
     private ArrayList<Medikament> medikamenteListe = new ArrayList<>();
+    private ArrayList<Medikament> medikamenteHistorie = new ArrayList<>();
     ArrayAdapter<Medikament> adapter;
     ArrayAdapter<Medikament> adapter2;
     int id = 0;
     long longId = 0;
 
 
-//    public void deleteItem(int position){
-//        medikamenteListe.remove(position);
-//    }
+    public ArrayList<Medikament> getMedikamenteHistorie() {
+        return medikamenteHistorie;
+    }
+
+    public void setMedikamenteHistorie(ArrayList<Medikament> medikamenteHistorie) {
+        this.medikamenteHistorie = medikamenteHistorie;
+    }
 
     public ArrayList<Medikament> getMedikamenteListe() {
         return medikamenteListe;
@@ -59,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-
             }
 
             @Override

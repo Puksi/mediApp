@@ -73,6 +73,14 @@ public class Medikament {
         this.medikament_name = medikament_name;
     }
 
+    public String getMedikament_anzeige() {
+        return medikament_anzeige;
+    }
+
+    public void setMedikament_anzeige(String medikament_anzeige) {
+        this.medikament_anzeige = medikament_anzeige;
+    }
+
     public Medikament(String medikament_anzeige, String medikament_name, boolean imKalender, boolean einnahme_frueh, boolean einnahme_mittag, boolean einnahme_abends, int anzahl_medikamente, String kommentar) {
         this.medikament_anzeige = medikament_anzeige;
         this.medikament_name = medikament_name;
@@ -86,6 +94,6 @@ public class Medikament {
 
     @Override
     public String toString() {
-        return this.medikament_anzeige;
+        return this.medikament_name;
     }
 }

@@ -9,13 +9,51 @@
     android:background="@color/chinese_silver"
     android:tag="fragment_heute">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Morgens" />
 
     <ListView
         android:id="@+id/listviewHeute"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
 
     </ListView>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mittags"/>
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listviewHeute_mittags"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Abends"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listviewHeute_abends"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/erledigt_heute"
+            android:layout_width="208dp"
+            android:layout_height="wrap_content"
+            android:text="Erledigt" />
+
+        <Button
+            android:id="@+id/verschieben_heute"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Verschieben" />
+    </LinearLayout>
 
 
 </LinearLayout>

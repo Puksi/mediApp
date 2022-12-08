@@ -84,7 +84,7 @@ public class Medikamente_fragment extends Fragment {
 //                medikamenteListe.add(new Medikament(medikament));
 //                   ((MainActivity)getActivity()).addMedikament(new Medikament(medikament));
                 Medikament medikament2 = new Medikament("",medikament, true,
-                        true, false, false,
+                        false, false, false,
                         1, "" );
 
                 if(medikament.length() == 0){

@@ -1,75 +1,131 @@
 package com.example.mediapp.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.mediapp.MainActivity;
 import com.example.mediapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Heute#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Heute extends Medikamente_fragment {
-    ArrayAdapter<Medikament> adapter2;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+public class Heute extends Fragment {
+    ArrayAdapter<Medikament> adapter2;
+    MyArrayAdapter adapterMorgens;
+    MyArrayAdapter adapterMittags;
+    MyArrayAdapter adapterAbends;
+    private MainActivity myActivity;
+    public ArrayList<Medikament> meineMedikamenteListe;
+    ArrayList<Medikament> meineMedikamenteListeMorgens;
+    ArrayList<Medikament> meineMedikamenteListeMittags;
+    ArrayList<Medikament> meineMedikamenteListeAbends;
+
+    ArrayList<Medikament> medikamenteHistorie;
+
 
     public Heute() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Heute.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Heute newInstance(String param1, String param2) {
+    public static Heute newInstance() {
         Heute fragment = new Heute();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        myActivity = (MainActivity) context;
+        meineMedikamenteListe = ((MainActivity) context).getMedikamenteListe();
+        medikamenteHistorie = ((MainActivity) context).getMedikamenteHistorie();
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_heute, container, false);
-        ListView liste2 = view.findViewById(R.id.listviewHeute);
-        adapter2 = new ArrayAdapter<Medikament>(getActivity(), android.R.layout.simple_list_item_1, meineMedikamenteListe);
-        liste2.setAdapter(adapter2);
-        // Inflate the layout for this fragment
-        adapter2.notifyDataSetChanged();
+        ListView listeMorgens = view.findViewById(R.id.listviewHeute);
+        ListView listeMittags = view.findViewById(R.id.listviewHeute_mittags);
+        ListView listeAbends = view.findViewById(R.id.listviewHeute_abends);
+        Button erledigt = view.findViewById(R.id.erledigt_heute);
+        Button verschieben = view.findViewById(R.id.verschieben_heute);
+
+//        adapter2 = new ArrayAdapter<Medikament>(getActivity(), android.R.layout.simple_list_item_1, meineMedikamenteListe);
+//        liste2.setAdapter(adapter2);
+        meineMedikamenteListeMorgens = new ArrayList<>();
+        meineMedikamenteListeMittags = new ArrayList<>();
+        meineMedikamenteListeAbends = new ArrayList<>();
+
+        erzeugeMorgensListe(meineMedikamenteListe);
+
+        adapterMorgens = new MyArrayAdapter(getActivity(), meineMedikamenteListeMorgens);
+        adapterMittags = new MyArrayAdapter(getActivity(), meineMedikamenteListeMittags);
+        adapterAbends = new MyArrayAdapter(getActivity(), meineMedikamenteListeAbends);
+
+        listeMorgens.setAdapter(adapterMorgens);
+        listeMittags.setAdapter(adapterMittags);
+        listeAbends.setAdapter(adapterAbends);
+
+        adapterMorgens.notifyDataSetChanged();
+        adapterMittags.notifyDataSetChanged();
+        adapterAbends.notifyDataSetChanged();
+//        adapter2.notifyDataSetChanged();
+
+        erledigt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        erzeugeMorgensListe(meineMedikamenteListe);
+        adapterMorgens.notifyDataSetChanged();
+        adapterMittags.notifyDataSetChanged();
+        adapterAbends.notifyDataSetChanged();
+    }
+
+    public void erzeugeMorgensListe(ArrayList<Medikament> arrayList) {
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            Medikament medikament = arrayList.get(i);
+            if (medikament.isEinnahme_frueh() && medikament.isImKalender() && !meineMedikamenteListeMorgens.contains(medikament)){
+                    meineMedikamenteListeMorgens.add(medikament);
+            }
+            if (medikament.isEinnahme_frueh() && !medikament.isImKalender() && meineMedikamenteListeMorgens.contains(medikament)){
+                meineMedikamenteListeMorgens.remove(medikament);
+            }
+            if (medikament.isEinnahme_mittag() && medikament.isImKalender() && !meineMedikamenteListeMittags.contains(medikament)){
+                meineMedikamenteListeMittags.add(medikament);
+            }
+            if (medikament.isEinnahme_mittag() && !medikament.isImKalender() && meineMedikamenteListeMittags.contains(medikament)){
+                meineMedikamenteListeMittags.remove(medikament);
+            }
+            if (medikament.isEinnahme_abends() && medikament.isImKalender() && !meineMedikamenteListeAbends.contains(medikament)){
+                meineMedikamenteListeAbends.add(medikament);
+            }
+            if (medikament.isEinnahme_abends() && !medikament.isImKalender() && meineMedikamenteListeAbends.contains(medikament)){
+                meineMedikamenteListeAbends.remove(medikament);
+            }
+
+        }
     }
 }
