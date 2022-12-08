@@ -80,17 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
-        String MedikamenteListeJSON = prefs.getString("MeineMedikamenteListe","");
-        if(MedikamenteListeJSON.length() != 4) {
-            medikamenteListe = new Gson().fromJson(MedikamenteListeJSON, new TypeToken<List<Medikament>>() {
-            }.getType());
-        }else {
-
-        }
-        if(medikamenteListe == null){
-            medikamenteListe = new ArrayList<>();
-        }
+        loadMedikamenteListe();
 
 
 
@@ -111,13 +101,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
 
-        String MedikamentenListeJSON = new Gson().toJson(medikamenteListe);
-
-        SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("MeineMedikamenteListe", MedikamentenListeJSON);
-
-        editor.apply();
+        saveMedikamenteListe();
 
         super.onStop();
     }
@@ -154,5 +138,35 @@ public class MainActivity extends AppCompatActivity {
 //    public void setMedikament(int i, Medikament medikament) {
 //        medikamenteListe.add(i, medikament);
 //    }
+
+    public void loadMedikamenteListe(){
+
+        SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
+        String MedikamenteListeJSON = prefs.getString("MeineMedikamenteListe","");
+
+
+        if (MedikamenteListeJSON == null || MedikamenteListeJSON.length() <= 4) {
+            medikamenteListe = new ArrayList<>();
+        }else {
+            medikamenteListe = new Gson().fromJson(MedikamenteListeJSON, new TypeToken<List<Medikament>>()
+            {
+
+            }.getType());
+        }
+    }
+
+    public void saveMedikamenteListe() {
+        if (medikamenteListe.size() <= 0) {
+
+
+            String MedikamentenListeJSON = new Gson().toJson(medikamenteListe);
+
+            SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("MeineMedikamenteListe", MedikamentenListeJSON);
+
+            editor.apply();
+        }
+    }
 
 }
