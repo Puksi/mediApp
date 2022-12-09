@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.Historie">
+    tools:context=".ui.main.Historie"
+    android:background="@color/chinese_silver"
+    android:id="@+id/heute_fragment">
 
 
     <ListView

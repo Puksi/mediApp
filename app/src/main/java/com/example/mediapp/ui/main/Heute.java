@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,6 +29,7 @@ public class Heute extends Fragment {
     ArrayList<Medikament> meineMedikamenteListeMorgens;
     ArrayList<Medikament> meineMedikamenteListeMittags;
     ArrayList<Medikament> meineMedikamenteListeAbends;
+    Medikament selectedMedicament;
 
     ArrayList<Medikament> medikamenteHistorie;
 
@@ -86,11 +88,29 @@ public class Heute extends Fragment {
         erledigt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Medikament medikament = (Medikament) listeMorgens.getSelectedItem();
-                medikament = (Medikament) listeMittags.getSelectedItem();
-                medikament = (Medikament) listeAbends.getSelectedItem();
-                medikament.setZeitEingenommen(Calendar.getInstance().getTime());
-                medikamenteHistorie.add(medikament);
+                selectedMedicament.setZeitEingenommen(Calendar.getInstance().getTime());
+                medikamenteHistorie.add(selectedMedicament);
+            }
+        });
+
+        listeMorgens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedMedicament = (Medikament) listeMorgens.getItemAtPosition(position);
+            }
+        });
+
+        listeMittags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedMedicament = (Medikament) listeMittags.getItemAtPosition(position);
+            }
+        });
+
+        listeAbends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedMedicament = (Medikament) listeAbends.getItemAtPosition(position);
             }
         });
 
