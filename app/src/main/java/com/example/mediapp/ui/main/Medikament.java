@@ -1,5 +1,7 @@
 package com.example.mediapp.ui.main;
 
+import java.util.Date;
+
 public class Medikament {
     String medikament_anzeige;
     private String medikament_name;
@@ -9,8 +11,16 @@ public class Medikament {
     private boolean einnahme_abends = false;
     private int anzahl_medikamente = 0;
     private String kommentar = "";
+    private Date ZeitEingenommen;
 
-    // TODO: 07/12/2022 kommentar fehlt hier 
+    public Date getZeitEingenommen() {
+        return ZeitEingenommen;
+    }
+
+    public void setZeitEingenommen(Date zeitEingenommen) {
+        ZeitEingenommen = zeitEingenommen;
+    }
+// TODO: 07/12/2022 kommentar fehlt hier
 
     public boolean isImKalender() {
         return imKalender;

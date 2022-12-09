@@ -15,6 +15,7 @@ import com.example.mediapp.MainActivity;
 import com.example.mediapp.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class Heute extends Fragment {
@@ -85,9 +86,14 @@ public class Heute extends Fragment {
         erledigt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Medikament medikament = (Medikament) listeMorgens.getSelectedItem();
+                medikament = (Medikament) listeMittags.getSelectedItem();
+                medikament = (Medikament) listeAbends.getSelectedItem();
+                medikament.setZeitEingenommen(Calendar.getInstance().getTime());
+                medikamenteHistorie.add(medikament);
             }
         });
+
 
 
 
