@@ -88,8 +88,9 @@ public class Heute extends Fragment {
         erledigt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (selectedMedicament!=null){
                 selectedMedicament.setZeitEingenommen(Calendar.getInstance().getTime());
-                medikamenteHistorie.add(selectedMedicament);
+                medikamenteHistorie.add(selectedMedicament);}
             }
         });
 
