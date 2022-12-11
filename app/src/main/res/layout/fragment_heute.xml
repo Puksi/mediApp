@@ -17,7 +17,8 @@
     <ListView
         android:id="@+id/listviewHeute"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:listSelector="#0f0">
 
     </ListView>
 
@@ -28,7 +29,8 @@
     <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/listviewHeute_mittags"/>
+            android:id="@+id/listviewHeute_mittags"
+            android:listSelector="#0f0"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +38,8 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listviewHeute_abends"/>
+        android:id="@+id/listviewHeute_abends"
+        android:listSelector="#0f0"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
