@@ -3,7 +3,6 @@ package com.example.mediapp.ui.main;
 import java.util.Date;
 
 public class Medikament {
-    String medikament_anzeige;
     private String medikament_name;
     private boolean imKalender = false;
     private boolean einnahme_frueh = false;
@@ -78,21 +77,11 @@ public class Medikament {
         this.medikament_name = medikament_name;
     }
 
-    public Medikament(String medikament_anzeige, String medikament_name) {
-        this.medikament_anzeige = medikament_anzeige;
+    public Medikament(String medikament_name) {
         this.medikament_name = medikament_name;
     }
 
-    public String getMedikament_anzeige() {
-        return medikament_anzeige;
-    }
-
-    public void setMedikament_anzeige(String medikament_anzeige) {
-        this.medikament_anzeige = medikament_anzeige;
-    }
-
-    public Medikament(String medikament_anzeige, String medikament_name, boolean imKalender, boolean einnahme_frueh, boolean einnahme_mittag, boolean einnahme_abends, int anzahl_medikamente, String kommentar) {
-        this.medikament_anzeige = medikament_anzeige;
+    public Medikament(String medikament_name, boolean imKalender, boolean einnahme_frueh, boolean einnahme_mittag, boolean einnahme_abends, int anzahl_medikamente, String kommentar) {
         this.medikament_name = medikament_name;
         this.imKalender = imKalender;
         this.einnahme_frueh = einnahme_frueh;
