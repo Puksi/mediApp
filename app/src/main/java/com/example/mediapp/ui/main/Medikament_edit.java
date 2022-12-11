@@ -101,25 +101,7 @@ public class Medikament_edit extends Medikamente_fragment {
                 medikament.setAnzahl_medikamente(Integer.parseInt(menge.getText().toString()));
 
                 medikament.setAnzahl_medikamente(Integer.parseInt(menge.getText().toString()));
-                if (medikament.isEinnahme_frueh()){
-                    einname = "Morgens: ";
-                } if (medikament.isEinnahme_mittag()){
-                    einname = "Mittags: ";
-                } if (medikament.isEinnahme_abends()){
-                    einname = "Abends: ";
-                } if (medikament.isEinnahme_abends() && medikament.isEinnahme_frueh()){
-                    einname = "Morgens und Abends: ";}
-                if (medikament.isEinnahme_frueh() && medikament.isEinnahme_mittag()){
-                    einname = "Morgens und Mittags: ";}
-                if (medikament.isEinnahme_frueh() && medikament.isEinnahme_mittag() &&
-                        medikament.isEinnahme_abends()){
-                    einname = "Morgens, Mittags und Abends: ";}
-                if (!medikament.isEinnahme_frueh() && !medikament.isEinnahme_mittag() &&
-                        !medikament.isEinnahme_abends()){
-                    einname = "";}
-
-                medikament.medikament_anzeige = einname + medikament.getAnzahl_medikamente()
-                        +  "x " + medikament.getMedikament_name() + " " + medikament.getKommentar();
+//
 
                 if (Integer.parseInt(menge.getText().toString()) <= 0){
                     menge.setText("");
