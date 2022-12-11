@@ -83,34 +83,14 @@ public class Medikamente_fragment extends Fragment {
                 ArrayList<Medikament> medikamenteListe = myContext.getMedikamenteListe();
 //                medikamenteListe.add(new Medikament(medikament));
 //                   ((MainActivity)getActivity()).addMedikament(new Medikament(medikament));
-                Medikament medikament2 = new Medikament("",medikament, true,
+                Medikament medikament2 = new Medikament(medikament, true,
                         false, false, false,
                         1, "" );
 
                 if(medikament.length() == 0){
                     input.setHint("Bitte ein Medikament eingeben");
                 }else{
-                    if (medikament2.isEinnahme_frueh()){
-                        einname = "Morgens: ";
-                    } if (medikament2.isEinnahme_mittag()){
-                        einname = "Mittags: ";
-                    } if (medikament2.isEinnahme_abends()){
-                        einname = "Abends: ";
-                    } if (medikament2.isEinnahme_abends() && medikament2.isEinnahme_frueh()){
-                        einname = "Morgens und Abends: ";}
-                    if (medikament2.isEinnahme_frueh() && medikament2.isEinnahme_mittag()){
-                        einname = "Morgens und Mittags: ";}
-                    if (medikament2.isEinnahme_frueh() && medikament2.isEinnahme_mittag() &&
-                            medikament2.isEinnahme_abends()){
-                        einname = "Morgens, Mittags und Abends: ";}
-                    if (!medikament2.isEinnahme_frueh() && !medikament2.isEinnahme_mittag() &&
-                            !medikament2.isEinnahme_abends()){
-                        einname = "";}
-
-
-//                    items.add(medikament);
-                    medikament2.medikament_anzeige = einname + medikament2.getAnzahl_medikamente()
-                            +  "x " + medikament  + " " + medikament2.getKommentar();
+//
                     medikamenteListe.add(medikament2);
                     input.setText("");
 
