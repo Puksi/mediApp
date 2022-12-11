@@ -14,8 +14,6 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position){
-            case 0:
-                return new Heute();
 
             case 1:
                 return new Historie();
