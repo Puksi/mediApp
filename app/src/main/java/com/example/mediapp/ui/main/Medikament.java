@@ -93,6 +93,9 @@ public class Medikament {
 
     @Override
     public String toString() {
+        if (this.getZeitEingenommen() != null){
+            return this.medikament_name + " " + this.getZeitEingenommen();
+        }
         return this.medikament_name;
     }
 }
