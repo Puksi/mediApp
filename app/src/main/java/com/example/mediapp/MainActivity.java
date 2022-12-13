@@ -108,14 +108,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveMedikamenteListe();
+    }
+
     public void changeFragment() {
         viewPager.setCurrentItem(3);
     }
 
-//    public void addMedikament(Medikament medikament){
-//        medikamenteListe.add(medikament);
-//    }
-//
+
     public void setIds(int i, long l){
         this.id = i;
         this.longId = l;
@@ -158,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveMedikamenteListe() {
-        if (medikamenteListe.size() <= 0) {
+        if (medikamenteListe.size() >= 0) {
 
 
             String MedikamentenListeJSON = new Gson().toJson(medikamenteListe);
