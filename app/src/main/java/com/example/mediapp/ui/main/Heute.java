@@ -98,45 +98,43 @@ public class Heute extends Fragment {
         verschieben.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
-                        && !selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeMorgens.remove(selectedMedicament);
-                    meineMedikamenteListeMittags.add(selectedMedicament);
-                    selectedMedicament.setEinnahme_frueh(false);
-                    selectedMedicament.setEinnahme_mittag(true);
-                }
-                else if (!selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
-                        && !selectedMedicament.isEinnahme_abends() || selectedMedicament.isEinnahme_frueh()
-                        && selectedMedicament.isEinnahme_mittag() & !selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeMittags.remove(selectedMedicament);
-                    meineMedikamenteListeAbends.add(selectedMedicament);
-                    selectedMedicament.setEinnahme_mittag(false);
-                    selectedMedicament.setEinnahme_abends(true);
-                }
-                else if (!selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
-                        && selectedMedicament.isEinnahme_abends() || !selectedMedicament.isEinnahme_frueh()
-                        && selectedMedicament.isEinnahme_mittag() && selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeAbends.remove(selectedMedicament);
-                    meineMedikamenteListeMorgens.add(selectedMedicament);
-                    selectedMedicament.setEinnahme_abends(false);
-                    selectedMedicament.setEinnahme_frueh(true);
-                }
-                else if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
-                        && selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeAbends.remove(selectedMedicament);
-                    selectedMedicament.setEinnahme_abends(false);
-                    selectedMedicament.setEinnahme_frueh(true);
-                }
-                else if (selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
-                        && selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeAbends.remove(selectedMedicament);
-                    selectedMedicament.setEinnahme_abends(false);
-                    selectedMedicament.setEinnahme_frueh(true);
-                }
+                if (selectedMedicament!=null) {
+                    if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
+                            && !selectedMedicament.isEinnahme_abends()) {
+                        meineMedikamenteListeMorgens.remove(selectedMedicament);
+                        meineMedikamenteListeMittags.add(selectedMedicament);
+                        selectedMedicament.setEinnahme_frueh(false);
+                        selectedMedicament.setEinnahme_mittag(true);
+                    } else if (!selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
+                            && !selectedMedicament.isEinnahme_abends() || selectedMedicament.isEinnahme_frueh()
+                            && selectedMedicament.isEinnahme_mittag() & !selectedMedicament.isEinnahme_abends()) {
+                        meineMedikamenteListeMittags.remove(selectedMedicament);
+                        meineMedikamenteListeAbends.add(selectedMedicament);
+                        selectedMedicament.setEinnahme_mittag(false);
+                        selectedMedicament.setEinnahme_abends(true);
+                    } else if (!selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
+                            && selectedMedicament.isEinnahme_abends() || !selectedMedicament.isEinnahme_frueh()
+                            && selectedMedicament.isEinnahme_mittag() && selectedMedicament.isEinnahme_abends()) {
+                        meineMedikamenteListeAbends.remove(selectedMedicament);
+                        meineMedikamenteListeMorgens.add(selectedMedicament);
+                        selectedMedicament.setEinnahme_abends(false);
+                        selectedMedicament.setEinnahme_frueh(true);
+                    } else if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
+                            && selectedMedicament.isEinnahme_abends()) {
+                        meineMedikamenteListeAbends.remove(selectedMedicament);
+                        selectedMedicament.setEinnahme_abends(false);
+                        selectedMedicament.setEinnahme_frueh(true);
+                    } else if (selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
+                            && selectedMedicament.isEinnahme_abends()) {
+                        meineMedikamenteListeAbends.remove(selectedMedicament);
+                        selectedMedicament.setEinnahme_abends(false);
+                        selectedMedicament.setEinnahme_frueh(true);
+                    }
 
-                adapterMorgens.notifyDataSetChanged();
-                adapterMittags.notifyDataSetChanged();
-                adapterAbends.notifyDataSetChanged();
+                    adapterMorgens.notifyDataSetChanged();
+                    adapterMittags.notifyDataSetChanged();
+                    adapterAbends.notifyDataSetChanged();
+                }
             }
         });
 
