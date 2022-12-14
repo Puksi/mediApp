@@ -10,13 +10,13 @@ public class Medikament {
     private boolean einnahme_abends = false;
     private int anzahl_medikamente = 0;
     private String kommentar = "";
-    private Date ZeitEingenommen;
+    private String ZeitEingenommen;
 
-    public Date getZeitEingenommen() {
+    public String getZeitEingenommen() {
         return ZeitEingenommen;
     }
 
-    public void setZeitEingenommen(Date zeitEingenommen) {
+    public void setZeitEingenommen(String zeitEingenommen) {
         ZeitEingenommen = zeitEingenommen;
     }
 // TODO: 07/12/2022 kommentar fehlt hier
