@@ -108,7 +108,11 @@
             android:text="Menge der Tabletten"
             android:textSize="20sp"
             android:layout_marginStart="5dp"
-            android:id="@+id/mengeMedikament"/>
+            android:id="@+id/mengeMedikament"
+            android:maxLength="1"
+            android:digits="123456789"
+            android:inputType="number"
+            android:maxLines="1"/>
 
     </RelativeLayout>
 
@@ -123,6 +127,9 @@
             android:layout_height="50dp"
             android:id="@+id/kommentar"
             android:text="zusätzliche Kommentare"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:maxLength="10"
+            android:maxLines="1"
             android:textAlignment="center"/>
 
     </RelativeLayout>
