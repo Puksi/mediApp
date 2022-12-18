@@ -13,8 +13,6 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.example.mediapp.MainActivity;
 import com.example.mediapp.R;
 
@@ -106,6 +104,10 @@ public class Medikament_edit extends Medikamente_fragment {
                 if (Integer.parseInt(menge.getText().toString()) <= 0){
                     menge.setText("");
                     menge.setHint("Bitte eine Anzahl größer als 0 eingeben.");
+                }
+                else if (menge.getText().toString() == "null") {
+                    menge.setText("1");
+                    menge.setHint("Bitte eine Menge eingeben");
                 }
                 else{
                 Medikamente_fragment medikamente_fragment = new Medikamente_fragment();
