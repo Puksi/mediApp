@@ -103,20 +103,17 @@ public class Medikament_edit extends Medikamente_fragment {
                 medikament.setEinnahme_frueh(morgens.isChecked());
                 medikament.setEinnahme_mittag(mittags.isChecked());
                 medikament.setEinnahme_abends(abends.isChecked());
-                medikament.setAnzahl_medikamente(Integer.parseInt(menge.getText().toString()));
 
-                medikament.setAnzahl_medikamente(Integer.parseInt(menge.getText().toString()));
-//
 
-                if (Integer.parseInt(menge.getText().toString()) <= 0){
+                if (menge.getText().toString().matches("")) {
+                    menge.setText("1");
+                    menge.setHint("Bitte eine Menge eingeben");
+                } else if (Integer.parseInt(menge.getText().toString()) <= 0) {
                     menge.setText("");
                     menge.setHint("Bitte eine Anzahl größer als 0 eingeben.");
                 }
-                else if (menge.getText().toString() == "null") {
-                    menge.setText("1");
-                    menge.setHint("Bitte eine Menge eingeben");
-                }
                 else{
+                    medikament.setAnzahl_medikamente(Integer.parseInt(menge.getText().toString()));
                 Medikamente_fragment medikamente_fragment = new Medikamente_fragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(((ViewGroup)getView().getParent()).getId(), medikamente_fragment, "medikament_fragment")
