@@ -22,6 +22,9 @@ import java.util.ArrayList;
 public class Medikament_edit extends Medikamente_fragment {
 
     ArrayList<Medikament> meineMedikamenteListe;
+    ArrayList<Medikament> meineMedikamenteListeMorgens;
+    ArrayList<Medikament> meineMedikamenteListeMittags;
+    ArrayList<Medikament> meineMedikamenteListeAbends;
     MainActivity myActivity;
     int zeile;
     ListView list;
@@ -52,6 +55,10 @@ public class Medikament_edit extends Medikamente_fragment {
         super.onAttach(context);
         myActivity = ((MainActivity) context);
         meineMedikamenteListe = ((MainActivity) context).getMedikamenteListe();
+        meineMedikamenteListeMorgens = ((MainActivity) context).getMedikamenteListeMorgens();
+        meineMedikamenteListeMittags = ((MainActivity) context).getMedikamenteListeMittags();
+        meineMedikamenteListeAbends = ((MainActivity) context).getMedikamenteListeAbends();
+
     }
 
 
@@ -124,6 +131,15 @@ public class Medikament_edit extends Medikamente_fragment {
             public void onClick(View view) {
 
                 meineMedikamenteListe.remove(medikament);
+                if (medikament.isEinnahme_frueh()) {
+                    meineMedikamenteListeMorgens.remove(medikament);
+                }
+                if (medikament.isEinnahme_mittag()) {
+                    meineMedikamenteListeMittags.remove(medikament);
+                }
+                if (medikament.isEinnahme_abends()) {
+                    meineMedikamenteListeAbends.remove(medikament);
+                }
 
 //                adapter.notifyDataSetChanged();
 

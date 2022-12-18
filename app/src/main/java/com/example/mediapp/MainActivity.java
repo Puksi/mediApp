@@ -24,6 +24,34 @@ public class MainActivity extends AppCompatActivity {
     MyViewPagerAdapter myViewPagerAdapter;
     private ArrayList<Medikament> medikamenteListe = new ArrayList<>();
     private ArrayList<Medikament> medikamenteHistorie = new ArrayList<>();
+    ArrayList<Medikament> medikamenteListeMorgens;
+    ArrayList<Medikament> medikamenteListeMittags;
+    ArrayList<Medikament> medikamenteListeAbends;
+
+    public ArrayList<Medikament> getMedikamenteListeMorgens() {
+        return medikamenteListeMorgens;
+    }
+
+    public void setMedikamenteListeMorgens(ArrayList<Medikament> medikamenteListeMorgens) {
+        this.medikamenteListeMorgens = medikamenteListeMorgens;
+    }
+
+    public ArrayList<Medikament> getMedikamenteListeMittags() {
+        return medikamenteListeMittags;
+    }
+
+    public void setMedikamenteListeMittags(ArrayList<Medikament> medikamenteListeMittags) {
+        this.medikamenteListeMittags = medikamenteListeMittags;
+    }
+
+    public ArrayList<Medikament> getMedikamenteListeAbends() {
+        return medikamenteListeAbends;
+    }
+
+    public void setMedikamenteListeAbends(ArrayList<Medikament> medikamenteListeAbends) {
+        this.medikamenteListeAbends = medikamenteListeAbends;
+    }
+
     ArrayAdapter<Medikament> adapter;
     ArrayAdapter<Medikament> adapter2;
     int id = 0;

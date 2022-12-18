@@ -206,5 +206,10 @@ public class Heute extends Fragment {
             }
 
         }
+
+        myActivity.setMedikamenteListeMorgens(meineMedikamenteListeMorgens);
+        myActivity.setMedikamenteListeMittags(meineMedikamenteListeMittags);
+        myActivity.setMedikamenteListeAbends(meineMedikamenteListeAbends);
+
     }
 }
