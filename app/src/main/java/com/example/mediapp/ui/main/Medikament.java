@@ -11,6 +11,15 @@ public class Medikament {
     private int anzahl_medikamente = 0;
     private String kommentar = "";
     private String ZeitEingenommen;
+    boolean eingenommen;
+
+    public boolean isEingenommen() {
+        return eingenommen;
+    }
+
+    public void setEingenommen(boolean eingenommen) {
+        this.eingenommen = eingenommen;
+    }
 
     public String getZeitEingenommen() {
         return ZeitEingenommen;
@@ -93,7 +102,7 @@ public class Medikament {
 
     @Override
     public String toString() {
-        if (this.getZeitEingenommen() != null){
+        if (this.getZeitEingenommen() != null && this.isEingenommen()){
             return this.medikament_name + " " + this.getZeitEingenommen();
         }
         return this.medikament_name;
