@@ -1,10 +1,13 @@
 package com.example.mediapp.ui.main;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,10 +31,11 @@ public class Heute extends Fragment {
     MyArrayAdapter adapterAbends;
     private MainActivity myActivity;
     public ArrayList<Medikament> meineMedikamenteListe;
-    ArrayList<Medikament> meineMedikamenteListeMorgens;
+    public ArrayList<Medikament> meineMedikamenteListeMorgens;
     ArrayList<Medikament> meineMedikamenteListeMittags;
     ArrayList<Medikament> meineMedikamenteListeAbends;
     Medikament selectedMedicament;
+    Medikament medikament;
 
     ArrayList<Medikament> medikamenteHistorie;
 
@@ -94,6 +98,7 @@ public class Heute extends Fragment {
                     Medikament medikament3 = new Medikament(selectedMedicament.getMedikament_name());
                     SimpleDateFormat zeitformat = new SimpleDateFormat("d. MMM yyyy HH:mm:ss", Locale.GERMANY);
                     medikament3.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
+                    selectedMedicament.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
                 medikamenteHistorie.add(medikament3);}
             }
         });
@@ -103,40 +108,41 @@ public class Heute extends Fragment {
             public void onClick(View view) {
                 if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
                         && !selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeMorgens.remove(selectedMedicament);
-                    meineMedikamenteListeMittags.add(selectedMedicament);
+//                    meineMedikamenteListeMorgens.remove(selectedMedicament);
+//                    meineMedikamenteListeMittags.add(selectedMedicament);
                     selectedMedicament.setEinnahme_frueh(false);
                     selectedMedicament.setEinnahme_mittag(true);
                 }
                 else if (!selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
                         && !selectedMedicament.isEinnahme_abends() || selectedMedicament.isEinnahme_frueh()
                         && selectedMedicament.isEinnahme_mittag() & !selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeMittags.remove(selectedMedicament);
-                    meineMedikamenteListeAbends.add(selectedMedicament);
+//                    meineMedikamenteListeMittags.remove(selectedMedicament);
+//                    meineMedikamenteListeAbends.add(selectedMedicament);
                     selectedMedicament.setEinnahme_mittag(false);
                     selectedMedicament.setEinnahme_abends(true);
                 }
                 else if (!selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
                         && selectedMedicament.isEinnahme_abends() || !selectedMedicament.isEinnahme_frueh()
                         && selectedMedicament.isEinnahme_mittag() && selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeAbends.remove(selectedMedicament);
-                    meineMedikamenteListeMorgens.add(selectedMedicament);
+//                    meineMedikamenteListeAbends.remove(selectedMedicament);
+//                    meineMedikamenteListeMorgens.add(selectedMedicament);
                     selectedMedicament.setEinnahme_abends(false);
                     selectedMedicament.setEinnahme_frueh(true);
                 }
                 else if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
                         && selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeAbends.remove(selectedMedicament);
+//                    meineMedikamenteListeAbends.remove(selectedMedicament);
                     selectedMedicament.setEinnahme_abends(false);
                     selectedMedicament.setEinnahme_frueh(true);
                 }
                 else if (selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
                         && selectedMedicament.isEinnahme_abends()){
-                    meineMedikamenteListeAbends.remove(selectedMedicament);
+//                    meineMedikamenteListeAbends.remove(selectedMedicament);
                     selectedMedicament.setEinnahme_abends(false);
                     selectedMedicament.setEinnahme_frueh(true);
                 }
 
+                erzeugeMorgensListe(meineMedikamenteListe);
                 adapterMorgens.notifyDataSetChanged();
                 adapterMittags.notifyDataSetChanged();
                 adapterAbends.notifyDataSetChanged();
@@ -170,6 +176,7 @@ public class Heute extends Fragment {
         return view;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -180,11 +187,36 @@ public class Heute extends Fragment {
     }
 
     public void erzeugeMorgensListe(ArrayList<Medikament> arrayList) {
-
         for (int i = 0; i < arrayList.size(); i++) {
-            Medikament medikament = arrayList.get(i);
+            medikament = arrayList.get(i);
             if (medikament.isEinnahme_frueh() && medikament.isImKalender() && !meineMedikamenteListeMorgens.contains(medikament)){
                     meineMedikamenteListeMorgens.add(medikament);
+                SimpleDateFormat stunden = new SimpleDateFormat("HH", Locale.GERMANY);
+                SimpleDateFormat minuten = new SimpleDateFormat("mm", Locale.GERMANY);
+                SimpleDateFormat sekunden = new SimpleDateFormat("ss", Locale.GERMANY);
+//        if (zeitformat2.format(Calendar.getInstance().getTime()).equals("16:19")) {}
+                MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
+
+                // Beispiel Uhrzeit 11:45:00
+                int time = (11 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
+                        + (45-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
+                        + (-Integer.parseInt(sekunden.format(Calendar.getInstance().getTime())));
+
+                final int milliSecond = (time * 1000);
+                new CountDownTimer(milliSecond, 1000) {
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        if (!meineMedikamenteListeMorgens.isEmpty()){
+                        if (meineMedikamenteListeMorgens.get(0).getZeitEingenommen()==null){
+                        music.start();}}
+                    }//1000 is equal to 1 second
+
+                }.start();
             }
             if (medikament.isEinnahme_frueh() && !medikament.isImKalender() && meineMedikamenteListeMorgens.contains(medikament)
             || !medikament.isEinnahme_frueh() && medikament.isImKalender() && meineMedikamenteListeMorgens.contains(medikament)){
@@ -192,6 +224,32 @@ public class Heute extends Fragment {
             }
             if (medikament.isEinnahme_mittag() && medikament.isImKalender() && !meineMedikamenteListeMittags.contains(medikament)){
                 meineMedikamenteListeMittags.add(medikament);
+                SimpleDateFormat stunden = new SimpleDateFormat("HH", Locale.GERMANY);
+                SimpleDateFormat minuten = new SimpleDateFormat("mm", Locale.GERMANY);
+                SimpleDateFormat sekunden = new SimpleDateFormat("ss", Locale.GERMANY);
+//        if (zeitformat2.format(Calendar.getInstance().getTime()).equals("16:19")) {}
+                MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
+
+                // Beispiel Uhrzeit 13:45:00
+                int time = (13 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
+                        + (45-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
+                        + (-Integer.parseInt(sekunden.format(Calendar.getInstance().getTime())));
+
+                final int milliSecond = (time * 1000);
+                new CountDownTimer(milliSecond, 1000) {
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        if (!meineMedikamenteListeMittags.isEmpty()){
+                            if (meineMedikamenteListeMittags.get(0).getZeitEingenommen()==null){
+                                music.start();}}
+                    }//1000 is equal to 1 second
+
+                }.start();
             }
             if (medikament.isEinnahme_mittag() && !medikament.isImKalender() && meineMedikamenteListeMittags.contains(medikament) 
                     || !medikament.isEinnahme_mittag() && medikament.isImKalender() && meineMedikamenteListeMittags.contains(medikament)){
@@ -199,6 +257,32 @@ public class Heute extends Fragment {
             }
             if (medikament.isEinnahme_abends() && medikament.isImKalender() && !meineMedikamenteListeAbends.contains(medikament)){
                 meineMedikamenteListeAbends.add(medikament);
+                SimpleDateFormat stunden = new SimpleDateFormat("HH", Locale.GERMANY);
+                SimpleDateFormat minuten = new SimpleDateFormat("mm", Locale.GERMANY);
+                SimpleDateFormat sekunden = new SimpleDateFormat("ss", Locale.GERMANY);
+//        if (zeitformat2.format(Calendar.getInstance().getTime()).equals("16:19")) {}
+                MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
+
+                // Beispiel Uhrzeit 19:45:00
+                int time = (19 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
+                        + (45-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
+                        + (-Integer.parseInt(sekunden.format(Calendar.getInstance().getTime())));
+
+                final int milliSecond = (time * 1000);
+                new CountDownTimer(milliSecond, 1000) {
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        if (!meineMedikamenteListeAbends.isEmpty()){
+                            if (meineMedikamenteListeAbends.get(0).getZeitEingenommen()==null){
+                                music.start();}}
+                    }//1000 is equal to 1 second
+
+                }.start();
             }
             if (medikament.isEinnahme_abends() && !medikament.isImKalender() && meineMedikamenteListeAbends.contains(medikament)
                     || !medikament.isEinnahme_abends() && medikament.isImKalender() && meineMedikamenteListeAbends.contains(medikament)){
