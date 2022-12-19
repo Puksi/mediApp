@@ -29,9 +29,11 @@ public class MyArrayAdapter extends ArrayAdapter<Medikament> {
 
         TextView nameMedikament = (TextView) convertView.findViewById(R.id.name_heute);
         TextView anzahlMedikament = (TextView) convertView.findViewById(R.id.anzahl_heute);
+        TextView kommentar = (TextView) convertView.findViewById(R.id.kommentar_heute);
 
         nameMedikament.setText(medikament.getMedikament_name());
         anzahlMedikament.setText(String.valueOf(medikament.getAnzahl_medikamente()));
+        kommentar.setText(medikament.getKommentar());
 
         return convertView;
 
