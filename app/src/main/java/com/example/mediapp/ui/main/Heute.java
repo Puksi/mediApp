@@ -98,6 +98,7 @@ public class Heute extends Fragment {
                     Medikament medikament3 = new Medikament(selectedMedicament.getMedikament_name());
                     SimpleDateFormat zeitformat = new SimpleDateFormat("d. MMM yyyy HH:mm:ss", Locale.GERMANY);
                     medikament3.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
+                    medikament3.setEingenommen(true);
                     selectedMedicament.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
                     medikamenteHistorie.add(medikament3);}
             }
