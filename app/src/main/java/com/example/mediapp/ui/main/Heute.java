@@ -212,8 +212,7 @@ public class Heute extends Fragment {
                     @Override
                     public void onFinish() {
                         if (!meineMedikamenteListeMorgens.isEmpty()){
-                            if (meineMedikamenteListeMorgens.get(0).getZeitEingenommen()==null ||
-                                    meineMedikamenteListeMorgens.get(1).getZeitEingenommen()==null){
+                            if (meineMedikamenteListeMorgens.get(0).getZeitEingenommen()==null){
                                 music.start();}}
                     }//1000 is equal to 1 second
 
@@ -246,8 +245,7 @@ public class Heute extends Fragment {
                     @Override
                     public void onFinish() {
                         if (!meineMedikamenteListeMittags.isEmpty()){
-                            if (meineMedikamenteListeMittags.get(0).getZeitEingenommen()==null ||
-                                    meineMedikamenteListeMittags.get(1).getZeitEingenommen()==null){
+                            if (meineMedikamenteListeMittags.get(0).getZeitEingenommen()==null){
                                 music.start();}}
                     }//1000 is equal to 1 second
 
@@ -267,7 +265,7 @@ public class Heute extends Fragment {
 
                 // Beispiel Uhrzeit 19:45:00
                 int time = (19 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
-                        + (20-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
+                        + (40-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
                         + (-Integer.parseInt(sekunden.format(Calendar.getInstance().getTime())));
 
                 final int milliSecond = (time * 1000);
@@ -280,8 +278,7 @@ public class Heute extends Fragment {
                     @Override
                     public void onFinish() {
                         if (!meineMedikamenteListeAbends.isEmpty()){
-                            if (meineMedikamenteListeAbends.get(0).getZeitEingenommen()==null ||
-                                    meineMedikamenteListeAbends.get(1).getZeitEingenommen()==null){
+                            if (meineMedikamenteListeAbends.get(0).getZeitEingenommen()==null) {
                                 music.start();}}
                     }//1000 is equal to 1 second
 
