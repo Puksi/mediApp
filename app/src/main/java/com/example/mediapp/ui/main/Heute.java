@@ -104,7 +104,9 @@ public class Heute extends Fragment {
         erledigt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectedMedicament!=null){
+                if (selectedMedicament!=null && (meineMedikamenteListeMorgens.size()!=0 ||
+                        meineMedikamenteListeMittags.size()!=0  ||
+                        meineMedikamenteListeAbends.size()!=0)){
                     Medikament medikament3 = new Medikament(selectedMedicament.getMedikament_name());
                     SimpleDateFormat zeitformat = new SimpleDateFormat("d. MMM yyyy HH:mm:ss", Locale.GERMANY);
                     medikament3.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
