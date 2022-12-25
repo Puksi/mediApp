@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class Heute extends Fragment {
@@ -37,6 +38,7 @@ public class Heute extends Fragment {
     Medikament selectedMedicament;
     Medikament medikament;
     boolean musik_gespielt = false;
+    String list_position;
 
     ArrayList<Medikament> medikamenteHistorie;
 
@@ -128,40 +130,32 @@ public class Heute extends Fragment {
         verschieben.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
-                        && !selectedMedicament.isEinnahme_abends()){
-//                    meineMedikamenteListeMorgens.remove(selectedMedicament);
-//                    meineMedikamenteListeMittags.add(selectedMedicament);
-                    selectedMedicament.setEinnahme_frueh(false);
-                    selectedMedicament.setEinnahme_mittag(true);
-                }
-                else if (!selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
-                        && !selectedMedicament.isEinnahme_abends() || selectedMedicament.isEinnahme_frueh()
-                        && selectedMedicament.isEinnahme_mittag() & !selectedMedicament.isEinnahme_abends()){
-//                    meineMedikamenteListeMittags.remove(selectedMedicament);
-//                    meineMedikamenteListeAbends.add(selectedMedicament);
-                    selectedMedicament.setEinnahme_mittag(false);
-                    selectedMedicament.setEinnahme_abends(true);
-                }
-                else if (!selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
-                        && selectedMedicament.isEinnahme_abends() || !selectedMedicament.isEinnahme_frueh()
-                        && selectedMedicament.isEinnahme_mittag() && selectedMedicament.isEinnahme_abends()){
-//                    meineMedikamenteListeAbends.remove(selectedMedicament);
-//                    meineMedikamenteListeMorgens.add(selectedMedicament);
-                    selectedMedicament.setEinnahme_abends(false);
-                    selectedMedicament.setEinnahme_frueh(true);
-                }
-                else if (selectedMedicament.isEinnahme_frueh() && !selectedMedicament.isEinnahme_mittag()
-                        && selectedMedicament.isEinnahme_abends()){
-//                    meineMedikamenteListeAbends.remove(selectedMedicament);
-                    selectedMedicament.setEinnahme_abends(false);
-                    selectedMedicament.setEinnahme_frueh(true);
-                }
-                else if (selectedMedicament.isEinnahme_frueh() && selectedMedicament.isEinnahme_mittag()
-                        && selectedMedicament.isEinnahme_abends()){
-//                    meineMedikamenteListeAbends.remove(selectedMedicament);
-                    selectedMedicament.setEinnahme_abends(false);
-                    selectedMedicament.setEinnahme_frueh(true);
+                if (selectedMedicament != null) {
+                    if (list_position.matches("Morgens")) {
+                        selectedMedicament.setEinnahme_frueh(false);
+                        selectedMedicament.setEinnahme_mittag(true);
+//                        if (meineMedikamenteListeMittags.contains(selectedMedicament)) {
+//                            selectedMedicament.setAnzahl_medikamente(selectedMedicament.getAnzahl_medikamente() + 1);
+//                        }
+                        selectedMedicament = null;
+                    }
+                    if (list_position.matches("Mittags")) {
+                        selectedMedicament.setEinnahme_mittag(false);
+                        selectedMedicament.setEinnahme_abends(true);
+//                        if (meineMedikamenteListeAbends.contains(selectedMedicament)) {
+//                            selectedMedicament.setAnzahl_medikamente(selectedMedicament.getAnzahl_medikamente() + 1);
+//                        }
+                        selectedMedicament = null;
+                    }
+                    if (list_position.matches("Abends")) {
+                        selectedMedicament.setEinnahme_abends(false);
+                        selectedMedicament.setEinnahme_frueh(true);
+//                        if (meineMedikamenteListeMorgens.contains(selectedMedicament)) {
+//                            selectedMedicament.setAnzahl_medikamente(selectedMedicament.getAnzahl_medikamente() + 1);
+//                        }
+                        selectedMedicament = null;
+                    }
+
                 }
 
                 erzeugeMorgensListe(meineMedikamenteListe);
@@ -175,6 +169,7 @@ public class Heute extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedMedicament = (Medikament) listeMorgens.getItemAtPosition(position);
+                list_position = "Morgens";
             }
         });
 
@@ -182,6 +177,7 @@ public class Heute extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedMedicament = (Medikament) listeMittags.getItemAtPosition(position);
+                list_position = "Mittags";
             }
         });
 
@@ -189,6 +185,7 @@ public class Heute extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedMedicament = (Medikament) listeAbends.getItemAtPosition(position);
+                list_position = "Abends";
             }
         });
 
