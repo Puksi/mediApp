@@ -11,7 +11,34 @@ public class Medikament {
     private int anzahl_medikamente = 0;
     private String kommentar = "";
     private String ZeitEingenommen;
+    private String ZeitEingenommenMorgens;
+    private String ZeitEingenommenMittags;
+    private String ZeitEingenommenAbends;
     boolean eingenommen;
+
+    public String getZeitEingenommenMorgens() {
+        return ZeitEingenommenMorgens;
+    }
+
+    public void setZeitEingenommenMorgens(String zeitEingenommenMorgens) {
+        ZeitEingenommenMorgens = zeitEingenommenMorgens;
+    }
+
+    public String getZeitEingenommenMittags() {
+        return ZeitEingenommenMittags;
+    }
+
+    public void setZeitEingenommenMittags(String zeitEingenommenMittags) {
+        ZeitEingenommenMittags = zeitEingenommenMittags;
+    }
+
+    public String getZeitEingenommenAbends() {
+        return ZeitEingenommenAbends;
+    }
+
+    public void setZeitEingenommenAbends(String zeitEingenommenAbends) {
+        ZeitEingenommenAbends = zeitEingenommenAbends;
+    }
 
     public boolean isEingenommen() {
         return eingenommen;
