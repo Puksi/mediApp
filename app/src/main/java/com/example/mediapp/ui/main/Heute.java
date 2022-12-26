@@ -37,7 +37,6 @@ public class Heute extends Fragment {
     ArrayList<Medikament> meineMedikamenteListeAbends;
     Medikament selectedMedicament;
     Medikament medikament;
-    boolean musik_gespielt = false;
     String list_position;
 
     ArrayList<Medikament> medikamenteHistorie;
@@ -106,20 +105,26 @@ public class Heute extends Fragment {
         erledigt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectedMedicament!=null && (meineMedikamenteListeMorgens.size()!=0 ||
+                if ((list_position.matches("Morgens") &&
+                        selectedMedicament.getZeitEingenommenMorgens() == null
+                        || list_position.matches("Mittags") &&
+                        selectedMedicament.getZeitEingenommenMittags() == null
+                        || list_position.matches("Abends") &&
+                        selectedMedicament.getZeitEingenommenAbends() == null) &&
+                        selectedMedicament!=null && (meineMedikamenteListeMorgens.size()!=0 ||
                         meineMedikamenteListeMittags.size()!=0  ||
                         meineMedikamenteListeAbends.size()!=0)){
                     Medikament medikament3 = new Medikament(selectedMedicament.getMedikament_name());
                     SimpleDateFormat zeitformat = new SimpleDateFormat("d. MMM yyyy HH:mm:ss", Locale.GERMANY);
                     medikament3.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
                     medikament3.setEingenommen(true);
-                    if (meineMedikamenteListeMorgens.contains(selectedMedicament)){
+                    if (list_position.matches("Morgens")){
                         selectedMedicament.setZeitEingenommenMorgens(zeitformat.format(Calendar.getInstance().getTime()));
                     }
-                    else if (meineMedikamenteListeMittags.contains(selectedMedicament)){
+                    else if (list_position.matches("Mittags")){
                         selectedMedicament.setZeitEingenommenMittags(zeitformat.format(Calendar.getInstance().getTime()));
                     }
-                    else if (meineMedikamenteListeAbends.contains(selectedMedicament)){
+                    else if (list_position.matches("Abends")){
                         selectedMedicament.setZeitEingenommenAbends(zeitformat.format(Calendar.getInstance().getTime()));
                     }
 //                    selectedMedicament.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
@@ -205,7 +210,6 @@ public class Heute extends Fragment {
     }
 
     public void erzeugeMorgensListe(ArrayList<Medikament> arrayList) {
-        musik_gespielt = false;
         for (int i = 0; i < arrayList.size(); i++) {
             medikament = arrayList.get(i);
             if (medikament.isEinnahme_frueh() && medikament.isImKalender() && !meineMedikamenteListeMorgens.contains(medikament)){
@@ -216,8 +220,8 @@ public class Heute extends Fragment {
 //        if (zeitformat2.format(Calendar.getInstance().getTime()).equals("16:19")) {}
                 MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
                 // Beispiel Uhrzeit 11:45:00
-                int time = (12 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
-                        + (46-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
+                int time = (11 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
+                        + (45-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
                         + (-Integer.parseInt(sekunden.format(Calendar.getInstance().getTime())));
 
                 final int milliSecond = (time * 1000);
@@ -230,10 +234,8 @@ public class Heute extends Fragment {
                     public void onFinish() {
                         if (!meineMedikamenteListeMorgens.isEmpty()){
                             for(int i =0; i < meineMedikamenteListeMorgens.size(); i++){
-                            if (meineMedikamenteListeMorgens.get(i).getZeitEingenommenMorgens() == null
-                            && !musik_gespielt){
+                            if (meineMedikamenteListeMorgens.get(i).getZeitEingenommenMorgens() == null){
                                 music.start();
-                                musik_gespielt = true;
                             }
                             }}
                         //meineMedikamenteListeMorgens.get(0).setZeitEingenommen(null);
@@ -254,7 +256,7 @@ public class Heute extends Fragment {
                 MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
 
                 // Beispiel Uhrzeit 13:45:00
-                int time = (12 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
+                int time = (13 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
                         + (45-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
                         + (-Integer.parseInt(sekunden.format(Calendar.getInstance().getTime())));
 
@@ -269,10 +271,8 @@ public class Heute extends Fragment {
                     public void onFinish() {
                         if (!meineMedikamenteListeMittags.isEmpty()){
                             for(int i =0; i < meineMedikamenteListeMittags.size(); i++){
-                                if (meineMedikamenteListeMittags.get(i).getZeitEingenommenMittags() == null
-                                        && !musik_gespielt){
+                                if (meineMedikamenteListeMittags.get(i).getZeitEingenommenMittags() == null){
                                     music.start();
-                                    musik_gespielt = true;
                                 }
                             }}
                     }//1000 is equal to 1 second
@@ -292,8 +292,8 @@ public class Heute extends Fragment {
                 MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
 
                 // Beispiel Uhrzeit 19:45:00
-                int time = (12 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
-                        + (46-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
+                int time = (19 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
+                        + (45-Integer.parseInt(minuten.format(Calendar.getInstance().getTime()))) * 60
                         + (-Integer.parseInt(sekunden.format(Calendar.getInstance().getTime())));
 
                 final int milliSecond = (time * 1000);
@@ -307,10 +307,8 @@ public class Heute extends Fragment {
                     public void onFinish() {
                         if (!meineMedikamenteListeAbends.isEmpty()){
                             for(int i =0; i < meineMedikamenteListeAbends.size(); i++){
-                                if (meineMedikamenteListeAbends.get(i).getZeitEingenommenAbends() == null
-                                        && !musik_gespielt){
+                                if (meineMedikamenteListeAbends.get(i).getZeitEingenommenAbends() == null){
                                     music.start();
-                                    musik_gespielt = true;
                                 }
                             }}
                     }//1000 is equal to 1 second
