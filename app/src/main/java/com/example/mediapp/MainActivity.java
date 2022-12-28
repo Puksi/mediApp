@@ -199,6 +199,14 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("MeineMedikamenteListe", MedikamentenListeJSON);
 
             editor.apply();
+        } else {
+            String MedikamentenListeJSON = "[]";
+
+            SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("MeineMedikamenteListe", MedikamentenListeJSON);
+
+            editor.apply();
         }
     }
 
