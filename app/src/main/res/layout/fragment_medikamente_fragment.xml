@@ -16,14 +16,14 @@
         android:ems="10"
         android:maxLength="15"
         android:inputType="textPersonName"
-        android:hint="Name des Medikaments" />
+        android:hint="@string/name_des_medikaments"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/buttonMedikamente"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Medikament hinzufügen"
-        android:onClick="addItem"/>
+        android:text="@string/medikament_hinzufuegen" />
 
     <ListView
         android:id="@+id/listviewerMedikamente"
