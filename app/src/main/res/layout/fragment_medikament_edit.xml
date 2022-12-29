@@ -14,20 +14,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout2">
 
-<!--        <ImageView-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:id="@+id/backArrow"-->
-<!--            android:src="@drawable/ic_backarrow"-->
-<!--            android:layout_centerVertical="true" />-->
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="Name"
+            android:text="@string/name"
             android:textSize="20sp"
             android:paddingHorizontal="20dp"
             android:id="@+id/medikamentName"/>
@@ -40,44 +31,47 @@
         android:id="@+id/relativeLayout1"
         android:layout_below="@+id/relativeLayout2"
         android:layout_centerVertical="true"
-        android:paddingHorizontal="20dp">
+        android:paddingHorizontal="20dp"
+        tools:ignore="ObsoleteLayoutParam">
 
 
         <Switch
             android:id="@+id/switch1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="In Kalender eintragen" />
+            android:text="@string/in_kalender_eintragen"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </RelativeLayout>
 
-    <!-- wann medikament -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout3"
         android:layout_below="@+id/relativeLayout1"
-        android:paddingHorizontal="20dp">
+        android:paddingHorizontal="20dp"
+        tools:ignore="ObsoleteLayoutParam">
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/radioGroup">
+            android:id="@+id/radioGroup"
+            tools:ignore="UselessParent">
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/morgens"
-                android:text="Morgens"/>
+                android:text="@string/morgens"/>
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/mittags"
-                android:text="Mittags"/>
+                android:text="@string/mittags"/>
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/abends"
-                android:text="Abends"/>
+                android:text="@string/abends"/>
 
 
         </RadioGroup>
@@ -89,7 +83,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout4"
-        android:layout_below="@+id/relativeLayout3">
+        android:layout_below="@+id/relativeLayout3"
+        tools:ignore="ObsoleteLayoutParam">
 
         <ImageView
             android:layout_width="30dp"
@@ -98,21 +93,24 @@
             android:layout_marginEnd="20dp"
             android:id="@+id/pills"
             android:src="@drawable/ic_pills"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/startbild" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/pills"
             android:layout_centerVertical="true"
-            android:text="Menge der Tabletten"
+            android:text="@string/menge_der_tabletten"
             android:textSize="20sp"
             android:layout_marginStart="5dp"
             android:id="@+id/mengeMedikament"
             android:maxLength="1"
             android:digits="123456789"
             android:inputType="number"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:autofillHints="" />
 
     </RelativeLayout>
 
@@ -120,17 +118,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout5"
-        android:layout_below="@id/relativeLayout4">
+        android:layout_below="@id/relativeLayout4"
+        tools:ignore="ObsoleteLayoutParam">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/kommentar"
-            android:text="zusätzliche Kommentare"
+            android:text="@string/zusaetzliche_kommentare"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:maxLength="10"
             android:maxLines="1"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:autofillHints=""
+            tools:ignore="LabelFor,TextFields" />
 
     </RelativeLayout>
 
@@ -144,13 +145,15 @@
             android:layout_width="208dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/relativeLayout5"
-            android:text="Speichern" />
+            android:text="@string/speichern"
+            tools:ignore="ButtonStyle,ObsoleteLayoutParam" />
 
         <Button
             android:id="@+id/löschen_edit"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Löschen" />
+            android:text="@string/loeschen"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </LinearLayout>
