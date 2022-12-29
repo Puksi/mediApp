@@ -2,18 +2,15 @@ package com.example.mediapp.ui.main;
 
 import android.content.Context;
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.example.mediapp.MainActivity;
 import com.example.mediapp.R;
-
 import java.util.ArrayList;
 
 
@@ -22,16 +19,8 @@ public class Historie extends Fragment {
     ArrayList<Medikament> medikamenteHistorie;
     ArrayAdapter<Medikament> adapter;
 
-
     public Historie() {
         // Required empty public constructor
-    }
-
-    public static Historie newInstance(String param1, String param2) {
-        Historie fragment = new Historie();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -40,7 +29,7 @@ public class Historie extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         myActivity = (MainActivity) context;
         medikamenteHistorie = ((MainActivity) context).getMedikamenteHistorie();
@@ -51,7 +40,7 @@ public class Historie extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_historie, container, false);
         ListView listeHistorie = view.findViewById(R.id.listview_historie);
-        adapter = new ArrayAdapter<Medikament>(getActivity(), android.R.layout.simple_list_item_1, medikamenteHistorie);
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, medikamenteHistorie);
         listeHistorie.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         return view;
