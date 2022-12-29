@@ -3,8 +3,6 @@ package com.example.mediapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -16,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager;
     MyViewPagerAdapter myViewPagerAdapter;
     private ArrayList<Medikament> medikamenteListe = new ArrayList<>();
-    private ArrayList<Medikament> medikamenteHistorie = new ArrayList<>();
+    private final ArrayList<Medikament> medikamenteHistorie = new ArrayList<>();
     ArrayList<Medikament> medikamenteListeMorgens;
     ArrayList<Medikament> medikamenteListeMittags;
     ArrayList<Medikament> medikamenteListeAbends;
@@ -52,26 +51,12 @@ public class MainActivity extends AppCompatActivity {
         this.medikamenteListeAbends = medikamenteListeAbends;
     }
 
-    ArrayAdapter<Medikament> adapter;
-    ArrayAdapter<Medikament> adapter2;
-    int id = 0;
-    long longId = 0;
-
-
     public ArrayList<Medikament> getMedikamenteHistorie() {
         return medikamenteHistorie;
     }
 
-    public void setMedikamenteHistorie(ArrayList<Medikament> medikamenteHistorie) {
-        this.medikamenteHistorie = medikamenteHistorie;
-    }
-
     public ArrayList<Medikament> getMedikamenteListe() {
         return medikamenteListe;
-    }
-
-    public void setMedikamenteListe(ArrayList<Medikament> medikamenteListe) {
-        this.medikamenteListe = medikamenteListe;
     }
 
 
@@ -84,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         myViewPagerAdapter = new MyViewPagerAdapter(this);
         viewPager.setAdapter(myViewPagerAdapter);
-
-
+        
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -106,27 +90,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                tabLayout.getTabAt(position).select();
+                Objects.requireNonNull(tabLayout.getTabAt(position)).select();
             }
         });
 
         loadMedikamenteListe();
-
-
-
-
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        int fragments = getSupportFragmentManager().getBackStackEntryCount();
-//        if (fragments == 1) {
-//            finish();
-//            return;
-//        }
-//
-//        super.onBackPressed();
-//    }
 
     @Override
     protected void onStop() {
@@ -142,70 +111,26 @@ public class MainActivity extends AppCompatActivity {
         saveMedikamenteListe();
     }
 
-    public void changeFragment() {
-        viewPager.setCurrentItem(3);
-    }
-
-
-    public void setIds(int i, long l){
-        this.id = i;
-        this.longId = l;
-    }
-
-    public int getIdFromMain(){
-        return this.id;
-    }
-//
-//    public long getLIdFromMain(){
-//        return this.longId;
-//    }
-//
-//    public Medikament returnMedikament(int i){
-//        return medikamenteListe.get(i);
-//    }
-//
-//    public ArrayList<Medikament> returnMedikamentListe() {
-//        return medikamenteListe;
-//    }
-//
-//    public void setMedikament(int i, Medikament medikament) {
-//        medikamenteListe.add(i, medikament);
-//    }
-
     public void loadMedikamenteListe(){
 
         SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
         String MedikamenteListeJSON = prefs.getString("MeineMedikamenteListe","");
 
-
         if (MedikamenteListeJSON == null || MedikamenteListeJSON.length() <= 4) {
             medikamenteListe = new ArrayList<>();
         }else {
             medikamenteListe = new Gson().fromJson(MedikamenteListeJSON, new TypeToken<List<Medikament>>()
-            {
-
-            }.getType());
+            {}.getType());
         }
     }
 
     public void saveMedikamenteListe() {
-        if (medikamenteListe.size() >= 0) {
-
-
+        medikamenteListe.size();
+        {
             String MedikamentenListeJSON = new Gson().toJson(medikamenteListe);
-
             SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("MeineMedikamenteListe", MedikamentenListeJSON);
-
-            editor.apply();
-        } else {
-            String MedikamentenListeJSON = "[]";
-
-            SharedPreferences prefs = getSharedPreferences("MeineMedikamenteListe", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("MeineMedikamenteListe", MedikamentenListeJSON);
-
             editor.apply();
         }
     }
