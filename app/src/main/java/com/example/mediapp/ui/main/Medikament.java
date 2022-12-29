@@ -1,6 +1,6 @@
 package com.example.mediapp.ui.main;
 
-import java.util.Date;
+import androidx.annotation.NonNull;
 
 public class Medikament {
     private String medikament_name;
@@ -55,7 +55,6 @@ public class Medikament {
     public void setZeitEingenommen(String zeitEingenommen) {
         ZeitEingenommen = zeitEingenommen;
     }
-// TODO: 07/12/2022 kommentar fehlt hier
 
     public boolean isImKalender() {
         return imKalender;
@@ -127,6 +126,7 @@ public class Medikament {
         this.kommentar = kommentar;
     }
 
+    @NonNull
     @Override
     public String toString() {
         if (this.getZeitEingenommen() != null && this.isEingenommen()){
