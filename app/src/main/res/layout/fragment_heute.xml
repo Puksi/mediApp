@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Morgens" />
+        android:text="@string/morgens" />
 
     <ListView
         android:id="@+id/listviewHeute"
@@ -25,7 +25,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mittags"/>
+            android:text="@string/mittags"/>
     <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Abends"/>
+        android:text="@string/abends"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,13 +49,15 @@
             android:id="@+id/erledigt_heute"
             android:layout_width="208dp"
             android:layout_height="wrap_content"
-            android:text="Erledigt" />
+            android:text="@string/erledigt"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/verschieben_heute"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Verschieben" />
+            android:text="@string/verschieben"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 
