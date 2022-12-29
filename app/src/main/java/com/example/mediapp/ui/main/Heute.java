@@ -7,26 +7,19 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.example.mediapp.MainActivity;
 import com.example.mediapp.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 
 public class Heute extends Fragment {
-    ArrayAdapter<Medikament> adapter2;
     MyArrayAdapter adapterMorgens;
     MyArrayAdapter adapterMittags;
     MyArrayAdapter adapterAbends;
@@ -38,29 +31,18 @@ public class Heute extends Fragment {
     Medikament selectedMedicament;
     Medikament medikament;
     String list_position;
-
     ArrayList<Medikament> medikamenteHistorie;
 
-
     public Heute() {
-        // Required empty public constructor
-    }
-
-    public static Heute newInstance() {
-        Heute fragment = new Heute();
-        Bundle args = new Bundle();
-        return fragment;
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         myActivity = (MainActivity) context;
         meineMedikamenteListe = ((MainActivity) context).getMedikamenteListe();
         medikamenteHistorie = ((MainActivity) context).getMedikamenteHistorie();
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,23 +54,15 @@ public class Heute extends Fragment {
         Button erledigt = view.findViewById(R.id.erledigt_heute);
         Button verschieben = view.findViewById(R.id.verschieben_heute);
 
-//        adapter2 = new ArrayAdapter<Medikament>(getActivity(), android.R.layout.simple_list_item_1, meineMedikamenteListe);
-//        liste2.setAdapter(adapter2);
         meineMedikamenteListeMorgens = new ArrayList<>();
         meineMedikamenteListeMittags = new ArrayList<>();
         meineMedikamenteListeAbends = new ArrayList<>();
 
-
         erzeugeMorgensListe(meineMedikamenteListe);
 
-
-//        if (!meineMedikamenteListeMittags.isEmpty()){
-//            meineMedikamenteListeMittags.get(0).setZeitEingenommen(null);}
-
-        adapterMorgens = new MyArrayAdapter(getActivity(), meineMedikamenteListeMorgens);
-        adapterMittags = new MyArrayAdapter(getActivity(), meineMedikamenteListeMittags);
-        adapterAbends = new MyArrayAdapter(getActivity(), meineMedikamenteListeAbends);
-
+        adapterMorgens = new MyArrayAdapter(requireActivity(), meineMedikamenteListeMorgens);
+        adapterMittags = new MyArrayAdapter(requireActivity(), meineMedikamenteListeMittags);
+        adapterAbends = new MyArrayAdapter(requireActivity(), meineMedikamenteListeAbends);
 
         listeMorgens.setAdapter(adapterMorgens);
         listeMittags.setAdapter(adapterMittags);
@@ -97,109 +71,78 @@ public class Heute extends Fragment {
         adapterMorgens.notifyDataSetChanged();
         adapterMittags.notifyDataSetChanged();
         adapterAbends.notifyDataSetChanged();
-
-
-
-//        adapter2.notifyDataSetChanged();
-
-        erledigt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((list_position.matches("Morgens") &&
-                        selectedMedicament.getZeitEingenommenMorgens() == null
-                        || list_position.matches("Mittags") &&
-                        selectedMedicament.getZeitEingenommenMittags() == null
-                        || list_position.matches("Abends") &&
-                        selectedMedicament.getZeitEingenommenAbends() == null) &&
-                        selectedMedicament!=null && (meineMedikamenteListeMorgens.size()!=0 ||
-                        meineMedikamenteListeMittags.size()!=0  ||
-                        meineMedikamenteListeAbends.size()!=0)){
-                    Medikament medikament3 = new Medikament(selectedMedicament.getMedikament_name());
-                    SimpleDateFormat zeitformat = new SimpleDateFormat("d. MMM yyyy HH:mm:ss", Locale.GERMANY);
-                    medikament3.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
-                    medikament3.setEingenommen(true);
-                    if (list_position.matches("Morgens")){
-                        selectedMedicament.setZeitEingenommenMorgens(zeitformat.format(Calendar.getInstance().getTime()));
-                    }
-                    else if (list_position.matches("Mittags")){
-                        selectedMedicament.setZeitEingenommenMittags(zeitformat.format(Calendar.getInstance().getTime()));
-                    }
-                    else if (list_position.matches("Abends")){
-                        selectedMedicament.setZeitEingenommenAbends(zeitformat.format(Calendar.getInstance().getTime()));
-                    }
-//                    selectedMedicament.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
-                    medikamenteHistorie.add(medikament3);}
-            }
-        });
-
-        verschieben.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectedMedicament != null) {
-                    if (list_position.matches("Morgens")) {
-                        selectedMedicament.setEinnahme_frueh(false);
-                        selectedMedicament.setEinnahme_mittag(true);
-//                        if (meineMedikamenteListeMittags.contains(selectedMedicament)) {
-//                            selectedMedicament.setAnzahl_medikamente(selectedMedicament.getAnzahl_medikamente() + 1);
-//                        }
-                        selectedMedicament = null;
-                    }
-                    if (list_position.matches("Mittags")) {
-                        selectedMedicament.setEinnahme_mittag(false);
-                        selectedMedicament.setEinnahme_abends(true);
-//                        if (meineMedikamenteListeAbends.contains(selectedMedicament)) {
-//                            selectedMedicament.setAnzahl_medikamente(selectedMedicament.getAnzahl_medikamente() + 1);
-//                        }
-                        selectedMedicament = null;
-                    }
-                    if (list_position.matches("Abends")) {
-                        selectedMedicament.setEinnahme_abends(false);
-                        selectedMedicament.setEinnahme_frueh(true);
-//                        if (meineMedikamenteListeMorgens.contains(selectedMedicament)) {
-//                            selectedMedicament.setAnzahl_medikamente(selectedMedicament.getAnzahl_medikamente() + 1);
-//                        }
-                        selectedMedicament = null;
-                    }
-
+        
+        erledigt.setOnClickListener(view1 -> {
+            if ((list_position.matches("Morgens") &&
+                    selectedMedicament.getZeitEingenommenMorgens() == null
+                    || list_position.matches("Mittags") &&
+                    selectedMedicament.getZeitEingenommenMittags() == null
+                    || list_position.matches("Abends") &&
+                    selectedMedicament.getZeitEingenommenAbends() == null) &&
+                    selectedMedicament!=null && (meineMedikamenteListeMorgens.size()!=0 ||
+                    meineMedikamenteListeMittags.size()!=0  ||
+                    meineMedikamenteListeAbends.size()!=0)){
+                Medikament medikament3 = new Medikament(selectedMedicament.getMedikament_name());
+                SimpleDateFormat zeitformat = new SimpleDateFormat("d. MMM yyyy HH:mm:ss", Locale.GERMANY);
+                medikament3.setZeitEingenommen(zeitformat.format(Calendar.getInstance().getTime()));
+                medikament3.setEingenommen(true);
+                if (list_position.matches("Morgens")){
+                    selectedMedicament.setZeitEingenommenMorgens(zeitformat.format(Calendar.getInstance().getTime()));
+                }
+                else if (list_position.matches("Mittags")){
+                    selectedMedicament.setZeitEingenommenMittags(zeitformat.format(Calendar.getInstance().getTime()));
+                }
+                else if (list_position.matches("Abends")){
+                    selectedMedicament.setZeitEingenommenAbends(zeitformat.format(Calendar.getInstance().getTime()));
                 }
 
-                erzeugeMorgensListe(meineMedikamenteListe);
-                adapterMorgens.notifyDataSetChanged();
-                adapterMittags.notifyDataSetChanged();
-                adapterAbends.notifyDataSetChanged();
-            }
+                medikamenteHistorie.add(medikament3);}
         });
 
-        listeMorgens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedMedicament = (Medikament) listeMorgens.getItemAtPosition(position);
-                list_position = "Morgens";
+        verschieben.setOnClickListener(view12 -> {
+            if (selectedMedicament != null) {
+                if (list_position.matches("Morgens")) {
+                    selectedMedicament.setEinnahme_frueh(false);
+                    selectedMedicament.setEinnahme_mittag(true);
+                    selectedMedicament = null;
+                }
+                if (list_position.matches("Mittags")) {
+                    selectedMedicament.setEinnahme_mittag(false);
+                    selectedMedicament.setEinnahme_abends(true);
+                    selectedMedicament = null;
+                }
+                if (list_position.matches("Abends")) {
+                    selectedMedicament.setEinnahme_abends(false);
+                    selectedMedicament.setEinnahme_frueh(true);
+                    selectedMedicament = null;
+                }
+
             }
+
+            erzeugeMorgensListe(meineMedikamenteListe);
+            adapterMorgens.notifyDataSetChanged();
+            adapterMittags.notifyDataSetChanged();
+            adapterAbends.notifyDataSetChanged();
         });
 
-        listeMittags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedMedicament = (Medikament) listeMittags.getItemAtPosition(position);
-                list_position = "Mittags";
-            }
+        listeMorgens.setOnItemClickListener((parent, view13, position, id) -> {
+            selectedMedicament = (Medikament) listeMorgens.getItemAtPosition(position);
+            list_position = "Morgens";
         });
 
-        listeAbends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedMedicament = (Medikament) listeAbends.getItemAtPosition(position);
-                list_position = "Abends";
-            }
+        listeMittags.setOnItemClickListener((parent, view14, position, id) -> {
+            selectedMedicament = (Medikament) listeMittags.getItemAtPosition(position);
+            list_position = "Mittags";
         });
 
-
+        listeAbends.setOnItemClickListener((parent, view15, position, id) -> {
+            selectedMedicament = (Medikament) listeAbends.getItemAtPosition(position);
+            list_position = "Abends";
+        });
 
         return view;
     }
-
-
+    
     @Override
     public void onResume() {
         super.onResume();
@@ -218,7 +161,6 @@ public class Heute extends Fragment {
                 SimpleDateFormat stunden = new SimpleDateFormat("HH", Locale.GERMANY);
                 SimpleDateFormat minuten = new SimpleDateFormat("mm", Locale.GERMANY);
                 SimpleDateFormat sekunden = new SimpleDateFormat("ss", Locale.GERMANY);
-//        if (zeitformat2.format(Calendar.getInstance().getTime()).equals("16:19")) {}
                 MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
                 // Beispiel Uhrzeit 11:45:00
                 int time = (11 - Integer.parseInt(stunden.format(Calendar.getInstance().getTime()))) * 3600
@@ -239,8 +181,7 @@ public class Heute extends Fragment {
                                 music.start();
                             }
                             }}
-                        //meineMedikamenteListeMorgens.get(0).setZeitEingenommen(null);
-                    }//1000 is equal to 1 second
+                    }
 
                 }.start();
             }
@@ -254,7 +195,6 @@ public class Heute extends Fragment {
                 SimpleDateFormat stunden = new SimpleDateFormat("HH", Locale.GERMANY);
                 SimpleDateFormat minuten = new SimpleDateFormat("mm", Locale.GERMANY);
                 SimpleDateFormat sekunden = new SimpleDateFormat("ss", Locale.GERMANY);
-//        if (zeitformat2.format(Calendar.getInstance().getTime()).equals("16:19")) {}
                 MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
 
                 // Beispiel Uhrzeit 13:45:00
@@ -277,7 +217,7 @@ public class Heute extends Fragment {
                                     music.start();
                                 }
                             }}
-                    }//1000 is equal to 1 second
+                    }
 
                 }.start();
             }
@@ -291,7 +231,6 @@ public class Heute extends Fragment {
                 SimpleDateFormat stunden = new SimpleDateFormat("HH", Locale.GERMANY);
                 SimpleDateFormat minuten = new SimpleDateFormat("mm", Locale.GERMANY);
                 SimpleDateFormat sekunden = new SimpleDateFormat("ss", Locale.GERMANY);
-//        if (zeitformat2.format(Calendar.getInstance().getTime()).equals("16:19")) {}
                 MediaPlayer music = MediaPlayer.create(this.myActivity, R.raw.notification_sound);
 
                 // Beispiel Uhrzeit 19:45:00
@@ -314,7 +253,7 @@ public class Heute extends Fragment {
                                     music.start();
                                 }
                             }}
-                    }//1000 is equal to 1 second
+                    }
 
                 }.start();
             }
