@@ -5,4 +5,23 @@
     <string name="tab_text_3">Medikamente</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="heute">Heute</string>
+    <string name="historie">Historie</string>
+    <string name="medikamente">Medikamente</string>
+    <string name="morgens">Morgens</string>
+    <string name="mittags">Mittags</string>
+    <string name="abends">Abends</string>
+    <string name="erledigt">Erledigt</string>
+    <string name="verschieben">Verschieben</string>
+    <string name="name">Name</string>
+    <string name="in_kalender_eintragen">In Kalender eintragen</string>
+    <string name="menge_der_tabletten">Menge der Tabletten</string>
+    <string name="zusaetzliche_kommentare">zusätzliche Kommentare</string>
+    <string name="speichern">Speichern</string>
+    <string name="loeschen">Löschen</string>
+    <string name="startbild">Startbild</string>
+    <string name="name_des_medikaments">Name des Medikaments</string>
+    <string name="medikament_hinzufuegen">Medikament hinzufügen</string>
+    <string name="_1">1</string>
+    <string name="kommentar">Kommentar</string>
 </resources>
